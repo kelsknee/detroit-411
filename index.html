@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detroit 411 — City Resource Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --blue: #003DA5;
+    --blue-dark: #002A75;
+    --blue-light: #E8EFFE;
+    --amber: #F5A623;
+    --amber-dark: #D4891A;
+    --bg: #F8F6F0;
+    --white: #FFFFFF;
+    --ink: #1A1A1A;
+    --ink-mid: #4A4A4A;
+    --ink-light: #8A8A8A;
+    --border: #D8D4CC;
+    --success: #1A7A4A;
+    --radius: 8px;
+  }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; }
+
+  /* NAV */
+  header {
+    background: var(--blue);
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+  .header-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: 0.04em;
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+  }
+  .logo-badge {
+    background: var(--amber);
+    color: var(--ink);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 3px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .nav-tabs {
+    display: flex;
+    gap: 4px;
+  }
+  .nav-tab {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.65);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .nav-tab:hover { background: rgba(255,255,255,0.1); color: white; }
+  .nav-tab.active { background: rgba(255,255,255,0.18); color: white; }
+
+  /* PAGE SYSTEM */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ── PAGE 1: DIRECTORY ── */
+  .hero {
+    background: var(--blue);
+    padding: 40px 24px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 32px;
+    background: var(--bg);
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+  .hero h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: clamp(36px, 8vw, 58px);
+    letter-spacing: 0.01em;
+    line-height: 1;
+    color: var(--white);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .hero h1 span { color: var(--amber); }
+  .hero p { color: rgba(255,255,255,0.75); font-size: 16px; margin-bottom: 28px; max-width: 480px; margin-left: auto; margin-right: auto; }
+  .search-wrap { max-width: 560px; margin: 0 auto; display: flex; gap: 8px; position: relative; z-index: 2; }
+  .search-input {
+    flex: 1; padding: 14px 18px; border-radius: var(--radius); border: none;
+    font-size: 16px; font-family: 'Inter', sans-serif; background: var(--white);
+    color: var(--ink); outline: none; box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  }
+  .search-input::placeholder { color: var(--ink-light); }
+  .search-input:focus { box-shadow: 0 0 0 3px var(--amber), 0 2px 12px rgba(0,0,0,0.15); }
+  .search-btn {
+    background: var(--amber); color: var(--ink); border: none; border-radius: var(--radius);
+    padding: 14px 22px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+    font-size: 17px; letter-spacing: 0.04em; cursor: pointer; white-space: nowrap;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15); transition: background 0.15s;
+  }
+  .search-btn:hover { background: var(--amber-dark); }
+
+  main { max-width: 900px; margin: 0 auto; padding: 32px 20px 60px; }
+
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 13px;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 14px;
+  }
+  .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; margin-bottom: 36px; }
+  .cat-tile {
+    background: var(--white); border: 2px solid var(--border); border-radius: var(--radius);
+    padding: 14px 10px 12px; text-align: center; cursor: pointer; transition: all 0.15s;
+  }
+  .cat-tile:hover { border-color: var(--blue); background: var(--blue-light); }
+  .cat-tile.active { border-color: var(--blue); background: var(--blue); }
+  .cat-tile.active .cat-icon { filter: brightness(10); }
+  .cat-tile.active .cat-name { color: var(--white); }
+  .cat-icon { font-size: 26px; margin-bottom: 6px; display: block; }
+  .cat-name { font-size: 12px; font-weight: 600; color: var(--ink-mid); line-height: 1.3; }
+
+  /* Empty / prompt state */
+  .browse-prompt {
+    text-align: center;
+    padding: 48px 24px;
+    color: var(--ink-light);
+    border: 2px dashed var(--border);
+    border-radius: var(--radius);
+    background: var(--white);
+  }
+  .browse-prompt .big { font-size: 40px; margin-bottom: 10px; }
+  .browse-prompt p { font-size: 15px; line-height: 1.5; }
+
+  /* AI BOX */
+  .ai-box { background: var(--blue-light); border: 1.5px solid var(--blue); border-radius: var(--radius); padding: 20px 22px; margin-bottom: 28px; display: none; }
+  .ai-box.visible { display: block; }
+  .ai-box-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .ai-badge { background: var(--blue); color: white; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 3px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .ai-box-header span { font-size: 13px; color: var(--ink-light); }
+  .ai-answer { font-size: 15px; line-height: 1.65; color: var(--ink); }
+  .ai-answer p { margin-bottom: 8px; }
+  .ai-answer p:last-child { margin-bottom: 0; }
+  .ai-loading { display: flex; align-items: center; gap: 8px; color: var(--ink-mid); font-size: 14px; }
+  .dot-pulse { display: inline-flex; gap: 4px; }
+  .dot-pulse span { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); animation: pulse 1.2s ease-in-out infinite; }
+  .dot-pulse span:nth-child(2) { animation-delay: 0.2s; }
+  .dot-pulse span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes pulse { 0%,80%,100%{opacity:0.3;transform:scale(0.8)} 40%{opacity:1;transform:scale(1)} }
+
+  /* RESOURCE CARDS */
+  .results-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 16px; }
+  .results-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 22px; color: var(--ink); text-transform: uppercase; letter-spacing: 0.03em; }
+  .results-count { font-size: 13px; color: var(--ink-light); }
+  .clear-filter { font-size: 13px; color: var(--blue); background: none; border: none; cursor: pointer; font-weight: 600; padding: 0; text-decoration: underline; }
+  .resource-list { display: flex; flex-direction: column; gap: 12px; }
+  .resource-card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 18px 20px; transition: border-color 0.15s, box-shadow 0.15s; }
+  .resource-card:hover { border-color: var(--blue); box-shadow: 0 2px 12px rgba(0,61,165,0.1); }
+  .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+  .card-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 20px; letter-spacing: 0.02em; color: var(--ink); line-height: 1.2; }
+  .card-tags { display: flex; gap: 6px; flex-wrap: wrap; flex-shrink: 0; }
+  .tag { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; }
+  .tag-cat { background: var(--blue-light); color: var(--blue); }
+  .tag-scope { background: #F0EDE6; color: var(--ink-mid); }
+  .tag-free { background: #E6F4ED; color: var(--success); }
+  .card-desc { font-size: 14px; color: var(--ink-mid); line-height: 1.55; margin-bottom: 12px; }
+  .card-meta { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; color: var(--ink-mid); border-top: 1px solid var(--border); padding-top: 12px; }
+  .card-meta a { color: var(--blue); text-decoration: none; font-weight: 500; }
+  .card-meta a:hover { text-decoration: underline; }
+  .meta-item { display: flex; align-items: center; gap: 5px; }
+
+  /* NEIGHBORHOOD SECTION */
+  .neighborhood-section { margin-top: 48px; }
+  .nh-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 2px solid var(--ink); }
+  .nh-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 28px; text-transform: uppercase; letter-spacing: 0.03em; }
+  .nh-stripe { flex: 1; height: 3px; background: var(--amber); border-radius: 2px; }
+
+  /* ── PAGE 2: MAP ── */
+  .map-page { display: flex; flex-direction: column; height: calc(100vh - 56px); }
+  .map-controls {
+    background: var(--blue);
+    padding: 20px 24px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+  }
+  .map-controls-inner { flex: 1; min-width: 240px; }
+  .map-controls label { display: block; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.75); margin-bottom: 6px; }
+  .map-search-input {
+    width: 100%; padding: 12px 16px; border-radius: var(--radius); border: none;
+    font-size: 15px; font-family: 'Inter', sans-serif; background: var(--white);
+    color: var(--ink); outline: none;
+  }
+  .map-search-input:focus { box-shadow: 0 0 0 3px var(--amber); }
+  .map-search-btn {
+    background: var(--amber); color: var(--ink); border: none; border-radius: var(--radius);
+    padding: 12px 20px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+    font-size: 16px; letter-spacing: 0.04em; cursor: pointer; white-space: nowrap;
+    align-self: flex-end; transition: background 0.15s; height: 44px;
+  }
+  .map-search-btn:hover { background: var(--amber-dark); }
+  .map-cat-filter {
+    background: rgba(255,255,255,0.12); border: 1.5px solid rgba(255,255,255,0.25); border-radius: var(--radius);
+    padding: 11px 14px; font-family: 'Inter', sans-serif; font-size: 14px; color: white;
+    cursor: pointer; outline: none; height: 44px; align-self: flex-end;
+  }
+  .map-cat-filter option { color: var(--ink); background: white; }
+
+  .map-body { display: flex; flex: 1; overflow: hidden; }
+  #map { flex: 1; }
+
+  .map-sidebar {
+    width: 340px;
+    background: var(--white);
+    border-left: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .sidebar-header {
+    padding: 16px 18px 12px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+  }
+  .sidebar-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+  }
+  .sidebar-subtitle { font-size: 12px; color: var(--ink-light); margin-top: 2px; }
+  .sidebar-list { overflow-y: auto; flex: 1; padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+
+  .sidebar-card {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .sidebar-card:hover { border-color: var(--blue); background: var(--blue-light); }
+  .sidebar-card.highlighted { border-color: var(--amber); background: #FFF8EC; }
+  .sidebar-card-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: 0.02em; color: var(--ink); margin-bottom: 4px; }
+  .sidebar-card-cat { font-size: 11px; font-weight: 600; color: var(--blue); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+  .sidebar-card-meta { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
+  .sidebar-card-meta a { color: var(--blue); text-decoration: none; }
+
+  .map-empty {
+    padding: 32px 18px;
+    text-align: center;
+    color: var(--ink-light);
+  }
+  .map-empty .big { font-size: 36px; margin-bottom: 8px; }
+  .map-empty p { font-size: 13px; line-height: 1.5; }
+
+  /* FOOTER */
+  footer { background: var(--ink); color: rgba(255,255,255,0.6); text-align: center; padding: 24px; font-size: 13px; line-height: 1.7; }
+  footer strong { color: var(--white); }
+  footer a { color: var(--amber); text-decoration: none; }
+
+  @media (max-width: 680px) {
+    .map-sidebar { display: none; }
+    .cat-grid { grid-template-columns: repeat(3, 1fr); }
+    .card-top { flex-direction: column; }
+    .search-btn { padding: 14px 14px; font-size: 15px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-logo" onclick="switchPage('directory')">
+    DETROIT <span class="logo-badge">411</span>
+  </div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" id="tab-directory" onclick="switchPage('directory')">📋 Directory</button>
+    <button class="nav-tab" id="tab-map" onclick="switchPage('map')">🗺 Map</button>
+  </div>
+</header>
+
+<!-- ═══════════════ PAGE 1: DIRECTORY ═══════════════ -->
+<div class="page active" id="page-directory">
+  <div class="hero">
+    <h1>Find <span>Help</span><br>in Detroit</h1>
+    <p>Programs, nonprofits, and city services — all in one place. Free to use, built for residents.</p>
+    <div class="search-wrap">
+      <input class="search-input" id="searchInput" type="text" placeholder="What do you need help with? (e.g. rent, food, job training…)" />
+      <button class="search-btn" id="searchBtn">ASK</button>
+    </div>
+  </div>
+
+  <main>
+    <div class="section-label">Browse by category</div>
+    <div class="cat-grid" id="catGrid">
+      <div class="cat-tile" data-cat="Food & Hunger"><span class="cat-icon">🥗</span><span class="cat-name">Food &amp; Hunger</span></div>
+      <div class="cat-tile" data-cat="Homeownership"><span class="cat-icon">🏠</span><span class="cat-name">Homeownership</span></div>
+      <div class="cat-tile" data-cat="Renter Protections"><span class="cat-icon">🔑</span><span class="cat-name">Renter Protections</span></div>
+      <div class="cat-tile" data-cat="Health"><span class="cat-icon">🏥</span><span class="cat-name">Health &amp; Mental Health</span></div>
+      <div class="cat-tile" data-cat="Employment"><span class="cat-icon">💼</span><span class="cat-name">Jobs &amp; Training</span></div>
+      <div class="cat-tile" data-cat="Youth"><span class="cat-icon">🎒</span><span class="cat-name">Youth &amp; Education</span></div>
+      <div class="cat-tile" data-cat="Seniors"><span class="cat-icon">👴</span><span class="cat-name">Seniors</span></div>
+      <div class="cat-tile" data-cat="Legal"><span class="cat-icon">⚖️</span><span class="cat-name">Legal Aid</span></div>
+      <div class="cat-tile" data-cat="Utilities"><span class="cat-icon">💡</span><span class="cat-name">Utilities &amp; Bills</span></div>
+      <div class="cat-tile" data-cat="Transportation"><span class="cat-icon">🚌</span><span class="cat-name">Transportation</span></div>
+      <div class="cat-tile" data-cat="Family"><span class="cat-icon">👨‍👩‍👧</span><span class="cat-name">Family &amp; Children</span></div>
+      <div class="cat-tile" data-cat="Veterans"><span class="cat-icon">🎖️</span><span class="cat-name">Veterans</span></div>
+      <div class="cat-tile" data-cat="Blight Removal"><span class="cat-icon">🗑️</span><span class="cat-name">Blight Removal</span></div>
+      <div class="cat-tile" data-cat="Small Business"><span class="cat-icon">💰</span><span class="cat-name">Small Business</span></div>
+      <div class="cat-tile" data-cat="Immigrant Services"><span class="cat-icon">🌍</span><span class="cat-name">Immigrant Services</span></div>
+    </div>
+
+    <div class="ai-box" id="aiBox">
+      <div class="ai-box-header"><span class="ai-badge">AI Guide</span><span>Personalized resource guidance</span></div>
+      <div class="ai-answer" id="aiAnswer"></div>
+    </div>
+
+    <div id="resourceSection">
+      <div id="browsePrompt" class="browse-prompt">
+        <div class="big">👆</div>
+        <p>Pick a category above to see resources,<br>or type your need in the search bar.</p>
+      </div>
+      <div id="resultsArea" style="display:none">
+        <div class="results-header">
+          <span class="results-title" id="resultsTitle">Resources</span>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span class="results-count" id="resultsCount"></span>
+            <button class="clear-filter" id="clearFilter" style="display:none" onclick="clearFilter()">Clear filter</button>
+          </div>
+        </div>
+        <div class="resource-list" id="resourceList"></div>
+      </div>
+    </div>
+
+    <div class="neighborhood-section" id="neighborhoodSection" style="display:none">
+      <div class="nh-header">
+        <span class="nh-title">By Neighborhood</span>
+        <div class="nh-stripe"></div>
+      </div>
+      <div id="neighborhoodList"></div>
+    </div>
+  </main>
+
+  <footer>
+    <strong>Detroit 411</strong> — A community resource guide for Detroit residents.<br>
+    Know a resource that should be listed? <a href="mailto:hello@detroit411.org">Submit it here</a>.<br>
+    Information is updated regularly but may change — always call to confirm.
+  </footer>
+</div>
+
+<!-- ═══════════════ PAGE 2: MAP ═══════════════ -->
+<div class="page" id="page-map">
+  <div class="map-page">
+    <div class="map-controls">
+      <div class="map-controls-inner">
+        <label>Search by address, neighborhood, or ZIP code</label>
+        <input class="map-search-input" id="mapSearchInput" type="text" placeholder="e.g. 48205, Brightmoor, 7400 Gratiot Ave…" />
+      </div>
+      <select class="map-cat-filter" id="mapCatFilter">
+        <option value="">All categories</option>
+        <option value="Food & Hunger">🥗 Food & Hunger</option>
+        <option value="Homeownership">🏠 Homeownership</option>
+        <option value="Renter Protections">🔑 Renter Protections</option>
+        <option value="Health">🏥 Health</option>
+        <option value="Employment">💼 Jobs & Training</option>
+        <option value="Youth">🎒 Youth & Education</option>
+        <option value="Seniors">👴 Seniors</option>
+        <option value="Legal">⚖️ Legal Aid</option>
+        <option value="Utilities">💡 Utilities</option>
+        <option value="Transportation">🚌 Transportation</option>
+        <option value="Family">👨‍👩‍👧 Family</option>
+        <option value="Veterans">🎖️ Veterans</option>
+        <option value="Blight Removal">🏚️ Blight Removal</option>
+        <option value="Small Business">💰 Small Business</option>
+        <option value="Immigrant Services">🌍 Immigrant Services</option>
+      </select>
+      <button class="map-search-btn" id="mapSearchBtn">FIND NEARBY</button>
+    </div>
+    <div class="map-body">
+      <div id="map"></div>
+      <div class="map-sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-title" id="sidebarTitle">Detroit Resources</div>
+          <div class="sidebar-subtitle" id="sidebarSubtitle">Search an address to find nearby help</div>
+        </div>
+        <div class="sidebar-list" id="sidebarList">
+          <div class="map-empty">
+            <div class="big">📍</div>
+            <p>Enter your address or ZIP code to see resources near you.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Google Maps -->
+<script>
+// ─── DATA ───────────────────────────────────────────────────────────────────
+const resources = [
+  { name:"Gleaners Community Food Bank", category:"Food & Hunger", scope:"Citywide", free:true,
+    desc:"Largest food bank in Southeast Michigan. Distributes food through a network of pantries, soup kitchens, and shelters.",
+    phone:"(866) 453-2637", address:"2131 Beaufait St, Detroit, MI 48207", website:"https://www.gcfb.org", hours:"Mon–Fri 7am–4:30pm",
+    lat:42.3543, lng:-83.0141 },
+  { name:"Forgotten Harvest", category:"Food & Hunger", scope:"Citywide", free:true,
+    desc:"Rescues surplus food from grocery stores, restaurants, and farms and delivers to hunger relief agencies throughout metro Detroit.",
+    phone:"(248) 967-1500", address:"15000 Eight Mile W, Oak Park, MI 48237", website:"https://www.forgottenharvest.org", hours:"Mon–Thu 8am–4:30pm",
+    lat:42.4463, lng:-83.1915 },
+  { name:"Detroit Food Policy Council", category:"Food & Hunger", scope:"Citywide", free:true,
+    desc:"Advocates for food access and food justice across Detroit. Connects residents to food resources, urban agriculture programs, and policy initiatives.",
+    phone:"", address:"Detroit, MI", website:"https://www.detroitfoodpolicycouncil.net", hours:"By appointment",
+    lat:42.3314, lng:-83.0458 },
+  { name:"SNAP Benefits (Michigan)", category:"Food & Hunger", scope:"Statewide", free:true,
+    desc:"Supplemental Nutrition Assistance Program provides monthly food benefits loaded onto a Michigan Bridge Card. Apply online or at a local DHHS office.",
+    phone:"(855) 275-6424", address:"Detroit DHHS: 4901 John C Lodge Fwy", website:"https://www.michigan.gov/mdhhs/adult-child-serv/assistance/foodassistance", hours:"Mon–Fri 8am–5pm",
+    lat:42.3589, lng:-83.0788 },
+  // ── HOMEOWNERSHIP ──
+  { name:"City of Detroit — Home Repair Program", category:"Homeownership", scope:"Citywide", free:true,
+    desc:"Free and subsidized home repairs for low-income Detroit homeowners through 0% Home Repair Loans and the Make It Home program. Covers roofs, furnaces, electrical, and more.",
+    phone:"(313) 224-6380", address:"Detroit Building Authority, Detroit, MI", website:"https://detroitmi.gov/government/departments-and-agencies/housing-revitalization-department", hours:"Mon–Fri 9am–5pm",
+    lat:42.3314, lng:-83.0458 },
+  { name:"Detroit Land Bank Authority", category:"Homeownership", scope:"Citywide", free:false,
+    desc:"Sells vacant and foreclosed Detroit properties to individuals and nonprofits. The Own It Now and Auction programs offer paths to homeownership, including discounted pricing for neighbors.",
+    phone:"(313) 974-6869", address:"500 Griswold St, Detroit, MI 48226", website:"https://www.buildingdetroit.org", hours:"Mon–Fri 9am–5pm",
+    lat:42.3295, lng:-83.0460 },
+  { name:"United Community Housing Coalition", category:"Homeownership", scope:"Citywide", free:true,
+    desc:"Helps Detroit homeowners facing foreclosure, tax issues, and title problems. Also assists with the Make It Home program to convert renters in tax-foreclosed homes into owners.",
+    phone:"(313) 963-3310", address:"2727 Second Ave, Suite 313, Detroit, MI 48201", website:"https://www.uchcdetroit.org", hours:"Mon–Fri 8:30am–5pm",
+    lat:42.3401, lng:-83.0614 },
+  { name:"Detroit Housing Commission — Homeownership Programs", category:"Homeownership", scope:"Citywide", free:true,
+    desc:"Administers HUD-assisted homeownership vouchers and programs that help low-income Detroit residents transition from renting to owning a home.",
+    phone:"(313) 877-8000", address:"1301 E Jefferson Ave, Detroit, MI 48207", website:"https://www.detroithousingcomm.org", hours:"Mon–Fri 8:30am–3:45pm",
+    lat:42.3338, lng:-83.0342 },
+  { name:"Southwest Solutions — Housing Counseling", category:"Homeownership", scope:"Citywide", free:true,
+    desc:"HUD-approved housing counseling for Detroit homeowners covering foreclosure prevention, mortgage default, and first-time homebuyer education.",
+    phone:"(313) 963-6601", address:"1600 Porter St, Detroit, MI 48216", website:"https://www.swsol.org", hours:"Mon–Fri 8:30am–7pm",
+    lat:42.3276, lng:-83.0660 },
+  { name:"Cass Community Social Services — Tiny Homes", category:"Homeownership", scope:"Citywide", free:false,
+    desc:"Tiny Homes Village program builds small homes for low-income Detroiters with a rent-to-own model — residents can own their home in 7 years with no credit check required.",
+    phone:"(313) 883-2277", address:"11745 Rosa Parks Blvd, Detroit, MI 48206", website:"https://www.casscommunity.org", hours:"Mon–Fri 9am–5pm",
+    lat:42.3867, lng:-83.1068 },
+  { name:"Legal Aid & Defender Association — Housing", category:"Homeownership", scope:"Citywide", free:true,
+    desc:"Free legal help for low-income homeowners facing foreclosure, tax disputes, title issues, and predatory lending. Also assists with estate and deed problems.",
+    phone:"(313) 967-5800", address:"613 Abbott St, Suite 6, Detroit, MI 48226", website:"https://www.ladadetroit.org", hours:"Mon–Fri 9am–5pm",
+    lat:42.3305, lng:-83.0555 },
+
+  // ── RENTER PROTECTIONS ──
+  { name:"Detroit Housing Commission — Section 8", category:"Renter Protections", scope:"Citywide", free:true,
+    desc:"Administers Housing Choice Vouchers (Section 8) providing rental assistance to low-income Detroit residents. Also manages public housing. Wait lists may apply.",
+    phone:"(313) 877-8000", address:"1301 E Jefferson Ave, Detroit, MI 48207", website:"https://www.detroithousingcomm.org", hours:"Mon–Fri 8:30am–3:45pm",
+    lat:42.3338, lng:-83.0342 },
+  { name:"United Community Housing Coalition — Renters", category:"Renter Protections", scope:"Citywide", free:true,
+    desc:"Tenant advocacy, eviction defense, and rental assistance for Detroit renters. Helps residents understand their rights, navigate eviction court, and find emergency rental funds.",
+    phone:"(313) 963-3310", address:"2727 Second Ave, Suite 313, Detroit, MI 48201", website:"https://www.uchcdetroit.org", hours:"Mon–Fri 8:30am–5pm",
+    lat:42.3401, lng:-83.0614 },
+  { name:"Wayne Metro Community Action Agency — Rental Assistance", category:"Renter Protections", scope:"Citywide", free:true,
+    desc:"Emergency rental assistance and eviction prevention for Wayne County residents facing housing instability. Also provides utility assistance and housing counseling.",
+    phone:"(313) 388-9799", address:"7310 Woodward Ave, Detroit, MI 48202", website:"https://www.waynemetro.org", hours:"Mon–Fri 8:30am–5pm",
+    lat:42.3708, lng:-83.0729 },
+  { name:"Legal Aid & Defender Association — Tenants", category:"Renter Protections", scope:"Citywide", free:true,
+    desc:"Free eviction defense and tenant rights legal representation for low-income Detroit renters. Handles 36th District Court eviction cases and unlawful landlord actions.",
+    phone:"(313) 967-5800", address:"613 Abbott St, Suite 6, Detroit, MI 48226", website:"https://www.ladadetroit.org", hours:"Mon–Fri 9am–5pm",
+    lat:42.3305, lng:-83.0555 },
+  { name:"Michigan Legal Help — Renters", category:"Renter Protections", scope:"Statewide", free:true,
+    desc:"Free self-help legal guides for Michigan renters covering eviction, security deposits, repairs, and landlord-tenant disputes. Includes step-by-step court prep tools.",
+    phone:"", address:"Online resource", website:"https://www.michiganlegalhelp.org/categories/housing", hours:"Available online 24/7",
+    lat:42.3314, lng:-83.0458 },
+  { name:"Southwest Solutions — Renter Support", category:"Renter Protections", scope:"Citywide", free:true,
+    desc:"Housing Resource Center connects Detroit renters to emergency rental assistance, eviction prevention, and affordable housing listings. Behavioral health support also available.",
+    phone:"(313) 963-6601", address:"1600 Porter St, Detroit, MI 48216", website:"https://www.swsol.org", hours:"Mon–Fri 8:30am–7pm",
+    lat:42.3276, lng:-83.0660 },
+  { name:"Cass Community Social Services — Housing", category:"Renter Protections", scope:"Citywide", free:true,
+    desc:"Emergency shelter, transitional housing, and stable affordable housing for Detroit residents experiencing or at risk of homelessness.",
+    phone:"(313) 883-2277", address:"11745 Rosa Parks Blvd, Detroit, MI 48206", website:"https://www.casscommunity.org", hours:"Mon–Fri 9am–5pm",
+    lat:42.3867, lng:-83.1068 },
+
+  { name:"Detroit Health Department", category:"Health", scope:"Citywide", free:true,
+    desc:"Public health clinics offering immunizations, STI testing, family planning, and maternal/infant health services to Detroit residents.",
+    phone:"(313) 876-4000", address:"Various neighborhood clinics, Detroit, MI", website:"https://detroitmi.gov/health", hours:"Mon–Fri 8am–5pm",
+    lat:42.3314, lng:-83.0458 },
+  { name:"Detroit Wayne Integrated Health Network", category:"Health", scope:"Citywide", free:true,
+    desc:"Mental health, substance use disorder, and developmental disability services for Wayne County residents. Crisis line available 24/7.",
+    phone:"(313) 833-2500", address:"8726 Woodward Ave, Detroit, MI 48202", website:"https://www.dwihn.org", hours:"24/7 crisis line",
+    lat:42.3802, lng:-83.0793 },
+  { name:"Covenant Community Care", category:"Health", scope:"Citywide", free:true,
+    desc:"Federally Qualified Health Center providing medical, dental, and behavioral health care on a sliding fee scale regardless of ability to pay.",
+    phone:"(313) 554-1095", address:"5716 Michigan Ave, Detroit, MI 48210", website:"https://www.covenantcommunitycare.org", hours:"Mon–Tue 8am–8pm; Wed–Fri 8am–5pm",
+    lat:42.3315, lng:-83.1136 },
+  { name:"Detroit Employment Solutions Corporation", category:"Employment", scope:"Citywide", free:true,
+    desc:"Connects Detroiters with jobs, training, and career counseling through Michigan Works! Service Centers. Resume help, job fairs, and placement services.",
+    phone:"(313) 596-5950", address:"115 Erskine St, Detroit, MI 48201", website:"https://www.descmiworks.com", hours:"Mon–Fri 8am–5pm",
+    lat:42.3467, lng:-83.0552 },
+  { name:"Focus: HOPE", category:"Employment", scope:"Citywide", free:true,
+    desc:"Workforce training in manufacturing, machining, IT, and skilled trades. Also operates food assistance programs for seniors and families.",
+    phone:"(313) 494-5500", address:"1400 Oakman Blvd, Detroit, MI 48238", website:"https://www.focushope.edu", hours:"Mon–Thu 8am–4pm; Fri 8am–12pm",
+    lat:42.3990, lng:-83.1234 },
+  { name:"Detroit at Work", category:"Employment", scope:"Citywide", free:true,
+    desc:"City of Detroit's official job portal and workforce development program. Job listings, career coaching, resume and interview prep for residents.",
+    phone:"(313) 962-9675", address:"18017 E Warren Ave, Detroit, MI 48224", website:"https://www.detroitatwork.com", hours:"Mon–Fri 8am–5pm",
+    lat:42.4103, lng:-82.9191 },
+  // ── YOUTH ──
+  { name:"Life Remodeled — Durfee Innovation Society", category:"Youth", scope:"Citywide", free:true,
+    desc:"Community hub inside Durfee Middle School serving youth and families in the Outer Drive/Hayes/Denby and Conant Gardens neighborhoods. Offers after-school programs, workforce training, health resources, food access, and neighborhood services year-round.",
+    phone:"(313) 744-3052", address:"2470 Collingwood St, Detroit, MI 48206", website:"https://www.liferemodeled.org", hours:"Mon–Fri 9am–5pm",
+    lat:42.4090, lng:-83.0480 },
+  { name:"Detroit Public Schools Community District", category:"Youth", scope:"Citywide", free:true,
+    desc:"Main public school system serving Detroit students K–12. Enrollment, transportation, and special education services for all Detroit children.",
+    phone:"(313) 873-6897", address:"3011 W Grand Blvd, Detroit, MI 48202", website:"https://www.detroitk12.org", hours:"Mon–Fri 8am–5pm",
+    lat:42.3674, lng:-83.0875 },
+  { name:"Detroit Youth Violence Prevention Initiative", category:"Youth", scope:"Citywide", free:true,
+    desc:"Coordinates city programs addressing youth violence through mentoring, mental health support, and community intervention.",
+    phone:"(313) 224-4946", address:"Coleman A. Young Municipal Center, Detroit, MI", website:"https://detroitmi.gov", hours:"Mon–Fri 9am–5pm",
+    lat:42.3302, lng:-83.0463 },
+  { name:"Detroit Public Library", category:"Youth", scope:"Citywide", free:true,
+    desc:"Free after-school programs, summer reading, tutoring, STEM activities, and digital literacy for Detroit youth at branches citywide.",
+    phone:"(313) 481-1300", address:"5201 Woodward Ave, Detroit, MI 48202", website:"https://www.detroitpubliclibrary.org", hours:"Mon/Thu/Sat 10am–6pm; Tue/Wed 12–8pm; Sun 1–5pm",
+    lat:42.3585, lng:-83.0668 },
+  { name:"Area Agency on Aging 1-B", category:"Seniors", scope:"Regional", free:true,
+    desc:"Connects seniors 60+ and adults with disabilities to in-home care, meal delivery, transportation, caregiver support, and community programs.",
+    phone:"(800) 852-7795", address:"31700 Middlebelt Rd Ste 140, Farmington Hills, MI 48334", website:"https://www.aaa1b.org", hours:"Mon–Fri 8am–5pm",
+    lat:42.5211, lng:-83.3387 },
+  { name:"Detroit Aging & Disability Resource Connection", category:"Seniors", scope:"Citywide", free:true,
+    desc:"Connects Detroit seniors to city programs including recreation, health, nutrition, and transportation services.",
+    phone:"(313) 224-1222", address:"Coleman A. Young Municipal Center, Detroit, MI", website:"https://detroitmi.gov/government/departments-and-agencies/aging-and-disability-resource-connection", hours:"Mon–Fri 8am–5pm",
+    lat:42.3302, lng:-83.0463 },
+  { name:"Michigan Legal Help", category:"Legal", scope:"Statewide", free:true,
+    desc:"Free legal information and self-help tools for Michigan residents who can't afford a lawyer. Covers housing, family law, benefits, and more.",
+    phone:"", address:"Online resource", website:"https://www.michiganlegalhelp.org", hours:"Available online 24/7",
+    lat:42.3314, lng:-83.0458 },
+  { name:"Legal Aid & Defender Association", category:"Legal", scope:"Citywide", free:true,
+    desc:"Free civil legal services for low-income Detroit and Wayne County residents — eviction defense, benefits appeals, family law, and immigration.",
+    phone:"(313) 967-5800", address:"613 Abbott St, Suite 6, Detroit, MI 48226", website:"https://www.ladadetroit.org", hours:"Mon–Fri 9am–5pm",
+    lat:42.3305, lng:-83.0555 },
+  { name:"Detroit Water & Sewerage Dept — Assistance", category:"Utilities", scope:"Citywide", free:true,
+    desc:"WRAP (Water Residential Assistance Program) helps low-income Detroit residents afford water bills. Income-based payment plans available.",
+    phone:"(313) 267-8000", address:"735 Randolph St, Detroit, MI 48226", website:"https://www.detroitmi.gov/water", hours:"Mon–Fri 8am–5pm",
+    lat:42.3328, lng:-83.0443 },
+  { name:"DTE Energy Assistance", category:"Utilities", scope:"Regional", free:true,
+    desc:"Programs to help customers afford electric and gas service: Budget Billing, Low Income Self-Sufficiency Plan (LSP), and State Emergency Relief (SER).",
+    phone:"(800) 477-4747", address:"Online or by phone", website:"https://www.dteenergy.com/assistance", hours:"Mon–Fri 8am–6pm",
+    lat:42.3314, lng:-83.0358 },
+  { name:"Michigan Energy Assistance Program", category:"Utilities", scope:"Statewide", free:true,
+    desc:"State program providing heating and cooling assistance to low-income households. Apply through Wayne Metro or other local community action agencies.",
+    phone:"(800) 292-4431", address:"Apply via Wayne Metro or other local agencies", website:"https://www.michigan.gov/mdhhs/assistance/energyassistance", hours:"Mon–Fri 8am–5pm",
+    lat:42.3708, lng:-83.0729 },
+  { name:"DDOT — Detroit Department of Transportation", category:"Transportation", scope:"Citywide", free:false,
+    desc:"City bus service covering major corridors in Detroit. Senior and disability discounts available. Connect to SMART for suburban routes.",
+    phone:"(313) 933-1300", address:"Serves all Detroit neighborhoods", website:"https://www.detroitmi.gov/ddot", hours:"Routes vary",
+    lat:42.3314, lng:-83.0458 },
+  { name:"SMART Bus — Suburban Mobility Authority", category:"Transportation", scope:"Regional", free:false,
+    desc:"Regional bus service connecting Detroit to suburban communities. Reduced fares for seniors, students, and persons with disabilities.",
+    phone:"(866) 962-5515", address:"Regional service", website:"https://www.smartbus.org", hours:"Routes vary",
+    lat:42.3314, lng:-83.0458 },
+  { name:"Wayne County Head Start", category:"Family", scope:"Citywide", free:true,
+    desc:"Free early childhood education, health, nutrition, and family support services for income-eligible children ages 0–5 in Wayne County.",
+    phone:"(734) 467-8900", address:"Multiple centers across Detroit", website:"https://www.waynemetro.org/head-start", hours:"Mon–Fri 7am–6pm",
+    lat:42.3314, lng:-83.0558 },
+  { name:"Alternatives For Girls", category:"Family", scope:"Citywide", free:true,
+    desc:"Helps homeless and at-risk girls and young women in Detroit avoid violence, teen pregnancy, and exploitation through shelter, mentoring, and advocacy.",
+    phone:"(313) 361-4000", address:"903 W Grand Blvd, Detroit, MI 48208", website:"https://www.alternativesforgirls.org", hours:"Mon–Fri 9am–5pm",
+    lat:42.3329, lng:-83.0975 },
+  { name:"John D. Dingell VA Medical Center", category:"Veterans", scope:"Citywide", free:true,
+    desc:"Full-service VA hospital providing medical, mental health, surgical, and specialty care for eligible veterans in the Detroit metro area.",
+    phone:"(313) 576-1000", address:"4646 John R St, Detroit, MI 48201", website:"https://www.va.gov/detroit-health-care", hours:"24/7",
+    lat:42.3558, lng:-83.0590 },
+  { name:"Michigan Veterans Affairs Agency", category:"Veterans", scope:"Statewide", free:true,
+    desc:"State agency connecting Michigan veterans and families to federal and state benefits including education, employment, housing, and disability claims.",
+    phone:"(800) 642-4838", address:"3423 N Martin Luther King Jr Blvd, Lansing, MI", website:"https://www.michigan.gov/mvaa", hours:"Mon–Fri 8am–5pm",
+    lat:42.3314, lng:-83.0458 },
+  // ── BLIGHT REMOVAL ──
+  { name:"Improve Detroit App", category:"Blight Removal", scope:"Citywide", free:true,
+    desc:"The City of Detroit's official app to report blighted properties, illegal dumping, overgrown lots, abandoned vehicles, and broken streetlights directly to the city. Download free on iOS and Android.",
+    phone:"", address:"Mobile app — iOS & Android", website:"https://detroitmi.gov/ImproveDetroit", hours:"24/7",
+    lat:42.3302, lng:-83.0463 },
+  { name:"BSEED — Buildings, Safety Engineering & Environmental", category:"Blight Removal", scope:"Citywide", free:true,
+    desc:"City department that enforces property maintenance, issues demolition orders, and investigates blight complaints. File code violations against negligent landlords or property owners here.",
+    phone:"(313) 224-2733", address:"2 Woodward Ave, Suite 401, Detroit, MI 48226", website:"https://detroitmi.gov/departments/buildings-safety-engineering-and-environmental-department", hours:"Mon–Fri 8:30am–4:30pm",
+    lat:42.3295, lng:-83.0438 },
+  { name:"Detroit Land Bank Authority — Blight", category:"Blight Removal", scope:"Citywide", free:true,
+    desc:"Manages and demolishes blighted vacant properties owned by the city. Residents can report problem Land Bank properties and track demolition activity in their neighborhood.",
+    phone:"(313) 974-6869", address:"500 Griswold St, Detroit, MI 48226", website:"https://www.buildingdetroit.org", hours:"Mon–Fri 9am–5pm",
+    lat:42.3295, lng:-83.0460 },
+  { name:"Life Remodeled — Blight Removal", category:"Blight Removal", scope:"Citywide", free:true,
+    desc:"Coordinates large-scale neighborhood blight removal through the annual Six Day Project (Sept 29–Oct 4), mobilizing thousands of volunteers to clean, board, and beautify blocks across Detroit's eastside.",
+    phone:"(313) 744-3052", address:"2470 Collingwood St, Detroit, MI 48206", website:"https://www.liferemodeled.org", hours:"Mon–Fri 9am–5pm",
+    lat:42.3820, lng:-83.1110 },
+  { name:"Southwest Detroit Environmental Vision", category:"Blight Removal", scope:"Citywide", free:true,
+    desc:"Community-based organization addressing environmental blight, illegal dumping, and lot beautification in southwest Detroit neighborhoods through resident-led cleanup programs.",
+    phone:"(313) 842-1961", address:"4218 Brandon St, Detroit, MI 48209", website:"https://www.swdetroitenvironmentalvision.org", hours:"Mon–Fri 9am–5pm",
+    lat:42.3247, lng:-83.0972 },
+
+  // ── SMALL BUSINESS ──
+  { name:"Motor City Match", category:"Small Business", scope:"Citywide", free:true,
+    desc:"City of Detroit program matching small businesses to available storefronts and providing cash grants up to $75,000 and technical assistance to open or expand in Detroit commercial corridors.",
+    phone:"(844) 338-4626", address:"150 W Jefferson Ave, Detroit, MI 48226", website:"https://www.motorcitymatch.com", hours:"Mon–Fri 9am–5pm",
+    lat:42.3288, lng:-83.0465 },
+  { name:"Detroit Economic Growth Corporation", category:"Small Business", scope:"Citywide", free:true,
+    desc:"Drives business attraction, retention, and growth in Detroit. Connects entrepreneurs to incentives, site selection assistance, and the city's small business grant programs.",
+    phone:"(313) 963-2940", address:"150 W Jefferson Ave #1700, Detroit, MI 48226", website:"https://www.degc.org", hours:"Mon–Fri 8:30am–5pm",
+    lat:42.3288, lng:-83.0465 },
+  { name:"TechTown Detroit", category:"Small Business", scope:"Citywide", free:true,
+    desc:"Detroit's leading small business accelerator offering coworking space, business coaching, the SWOT City program for neighborhood businesses, and pitch competitions with cash awards.",
+    phone:"(313) 879-5250", address:"440 Burroughs St, Detroit, MI 48202", website:"https://www.techtowndetroit.org", hours:"Mon–Fri 8am–6pm",
+    lat:42.3650, lng:-83.0730 },
+  { name:"Build Institute", category:"Small Business", scope:"Citywide", free:true,
+    desc:"Micro-enterprise training program helping Detroiters start and grow small businesses. The Build Basics course teaches business fundamentals in an accessible, community-centered setting.",
+    phone:"(313) 265-3590", address:"1620 Michigan Ave #120, Detroit, MI 48216", website:"https://www.buildinstitute.org", hours:"Mon–Fri 10am–5pm",
+    lat:42.3317, lng:-83.0675 },
+  { name:"Detroit Development Fund", category:"Small Business", scope:"Citywide", free:true,
+    desc:"Community development lender providing small business loans from $5,000–$150,000 to Detroit entrepreneurs who can't access conventional bank financing. Also offers technical assistance.",
+    phone:"(313) 784-9547", address:"3031 W Grand Blvd, Suite 505, Detroit, MI 48202", website:"https://www.detroitdevelopmentfund.com", hours:"Mon–Thu 9am–4pm; Fri 9am–3pm",
+    lat:42.3700, lng:-83.0762 },
+  { name:"Michigan Women Forward", category:"Small Business", scope:"Citywide", free:true,
+    desc:"Provides microloans, business coaching, and financial tools for women entrepreneurs in Detroit and across Michigan. Specializes in supporting women-owned businesses facing capital gaps.",
+    phone:"(313) 962-1920", address:"1155 Brewery Park Blvd, Suite 350, Detroit, MI 48207", website:"https://www.miwomenforward.org", hours:"Mon–Fri 9am–5pm",
+    lat:42.3433, lng:-83.0422 },
+  { name:"Detroit Hispanic Development Corporation — Business", category:"Small Business", scope:"Citywide", free:true,
+    desc:"Business development resources, workspace, and entrepreneurship training for Latino small business owners in Detroit, with a focus on southwest Detroit corridors.",
+    phone:"(313) 967-4880", address:"1211 Trumbull St, Detroit, MI 48216", website:"https://www.detroithdc.com", hours:"Mon–Thu 9am–7:30pm",
+    lat:42.3267, lng:-83.0637 },
+  { name:"U.S. Small Business Administration — Detroit", category:"Small Business", scope:"Statewide", free:true,
+    desc:"Federal agency offering SBA loans, disaster assistance, and small business resources. Detroit district office serves Michigan entrepreneurs with lending programs, training, and government contracting help.",
+    phone:"(313) 226-6075", address:"477 Michigan Ave, Suite 1819, Detroit, MI 48226", website:"https://www.sba.gov/offices/district/mi/detroit", hours:"Mon–Fri 8am–4:30pm",
+    lat:42.3311, lng:-83.0532 },
+
+  // ── FOOD (additions) ──
+  { name:"Capuchin Soup Kitchen", category:"Food & Hunger", scope:"Citywide", free:true,
+    desc:"Hot meals, food pantry, clothing, and showers for Detroit residents in need. Serves thousands daily with dignity. Grocery-style food pantry by appointment.",
+    phone:"(313) 579-2100", address:"1820 Mt Elliott St, Detroit, MI 48207", website:"https://www.cskdetroit.org", hours:"Mon–Sun 9am–5pm",
+    lat:42.3516, lng:-83.0147 },
+  { name:"Detroit Rescue Mission Ministries", category:"Food & Hunger", scope:"Citywide", free:true,
+    desc:"Meals, emergency shelter, addiction recovery, and homeless services for Detroit residents. Free breakfast, lunch, and dinner daily. 100+ beds available.",
+    phone:"(313) 993-6703", address:"3535 Third Ave, Detroit, MI 48201", website:"https://www.drmm.org", hours:"24/7",
+    lat:42.3446, lng:-83.0657 },
+  { name:"Salvation Army Detroit", category:"Food & Hunger", scope:"Citywide", free:true,
+    desc:"Emergency food assistance, clothing, utility help, and holiday programs for Detroit families. Food pantry and seasonal toy and coat drives.",
+    phone:"(313) 897-2914", address:"3729 W Chicago Blvd, Detroit, MI 48206", website:"https://www.salvationarmymichigan.org", hours:"Mon–Fri; call for hours",
+    lat:42.3727, lng:-83.1209 },
+  { name:"GenesisHOPE", category:"Food & Hunger", scope:"Citywide", free:true,
+    desc:"Community development nonprofit on Detroit's east side offering food pantry, financial coaching, and neighborhood health programs.",
+    phone:"(313) 571-0937", address:"7200 Mack Ave, Detroit, MI 48214", website:"https://genesishope.org", hours:"Mon–Thu 9am–4pm",
+    lat:42.3642, lng:-83.0124 },
+  { name:"Matrix Human Services", category:"Food & Hunger", scope:"Citywide", free:true,
+    desc:"Comprehensive social services including free food distribution (Tuesdays with Forgotten Harvest), youth programs, senior services, and family support on the east side.",
+    phone:"(313) 526-4000", address:"13560 E McNichols Rd, Detroit, MI 48205", website:"https://www.matrixhumanservices.org", hours:"Mon–Fri 7:30am–8pm; Sat–Sun 9am–5pm",
+    lat:42.4266, lng:-82.9848 },
+
+  // ── HEALTH (additions) ──
+  { name:"Detroit Community Health Connection", category:"Health", scope:"Citywide", free:true,
+    desc:"Federally Qualified Health Center providing primary care, dental, and behavioral health on a sliding fee scale. Multiple locations across Detroit.",
+    phone:"(313) 822-0900", address:"13901 E Jefferson Ave, Detroit, MI 48215", website:"https://www.dchcdetroit.org", hours:"Mon/Wed/Thu/Fri 9am–5pm; Tue 10am–6pm",
+    lat:42.3718, lng:-82.9481 },
+  { name:"Advantage Health Centers", category:"Health", scope:"Citywide", free:true,
+    desc:"Federally Qualified Health Center with multiple Detroit locations offering medical, dental, and behavioral health care regardless of ability to pay.",
+    phone:"(313) 416-6262", address:"15400 W McNichols Rd, Detroit, MI 48235", website:"https://www.advantagehealth.com", hours:"Mon–Fri 8am–5pm; Wed 9am–6pm",
+    lat:42.4163, lng:-83.1985 },
+
+  // ── EMPLOYMENT (additions) ──
+  { name:"Goodwill Industries — Flip the Script", category:"Employment", scope:"Citywide", free:true,
+    desc:"Career center offering GED completion, job skills training, trade certifications, and employment placement. Specialized support for people facing barriers to employment.",
+    phone:"(313) 557-4848", address:"2777 E Grand Blvd, Detroit, MI 48211", website:"https://www.goodwilldetroit.org", hours:"Mon–Fri 9am–5pm",
+    lat:42.3741, lng:-83.0622 },
+  { name:"Empowerment Plan", category:"Employment", scope:"Citywide", free:true,
+    desc:"Employs homeless Detroit mothers as full-time coat manufacturers, providing stable jobs and income. Also distributes coats free to those experiencing homelessness.",
+    phone:"", address:"7640 Kercheval Ave, Detroit, MI 48214", website:"https://www.empowermentplan.org", hours:"Mon–Fri 9am–5pm",
+    lat:42.3569, lng:-83.0032 },
+
+  // ── YOUTH (additions) ──
+  { name:"Boys & Girls Clubs of Southeastern Michigan", category:"Youth", scope:"Citywide", free:true,
+    desc:"After-school and summer programs for Detroit youth including academic support, sports, arts, and career development at multiple locations citywide.",
+    phone:"(313) 523-4540", address:"16500 Tireman Ave, Detroit, MI 48228", website:"https://www.bgcsem.org", hours:"Mon–Fri 3pm–close; varies by location",
+    lat:42.3512, lng:-83.2086 },
+  { name:"Detroit PAL", category:"Youth", scope:"Citywide", free:true,
+    desc:"Police Athletic League offering free and low-cost youth sports, arts, and academic programs for Detroit kids ages 5–17 at The Corner Ballpark and partner sites.",
+    phone:"(313) 833-1600", address:"1680 Michigan Ave, Detroit, MI 48216", website:"https://www.detroitpal.org", hours:"Mon–Fri 10am–5:30pm",
+    lat:42.3322, lng:-83.0689 },
+  { name:"Detroit Phoenix Center", category:"Youth", scope:"Citywide", free:true,
+    desc:"Drop-in center and emergency shelter for youth ages 13–24 experiencing or at risk of homelessness. Same-day services, case management, and housing placement.",
+    phone:"(313) 482-0916", address:"1420 Washington Blvd, Detroit, MI 48226", website:"https://www.detroitphoenixcenter.org", hours:"Mon/Wed/Fri 10am–6pm; Tue/Thu 11am–7pm",
+    lat:42.3340, lng:-83.0505 },
+
+  // ── FAMILY (additions) ──
+  { name:"HAVEN", category:"Family", scope:"Regional", free:true,
+    desc:"24/7 crisis support, emergency shelter, counseling, and advocacy for survivors of domestic violence and sexual assault in Oakland and Wayne counties.",
+    phone:"(248) 334-1284", address:"801 Vanguard Dr, Pontiac, MI 48341", website:"https://www.haven-oakland.org", hours:"24/7 crisis line",
+    lat:42.6464, lng:-83.3201 },
+
+  // ── IMMIGRANT SERVICES (new category) ──
+  { name:"Arab American & Chaldean Council", category:"Immigrant Services", scope:"Regional", free:true,
+    desc:"Social services, mental health, employment, and settlement support for Arab, Chaldean, and immigrant communities in Metro Detroit. Multilingual staff.",
+    phone:"(313) 581-7287", address:"13840 W Warren Ave, Dearborn, MI 48126", website:"https://www.myacc.org", hours:"Mon–Fri 9am–5pm",
+    lat:42.3441, lng:-83.1799 },
+  { name:"ACCESS — Arab Community Center for Economic & Social Services", category:"Immigrant Services", scope:"Regional", free:true,
+    desc:"Largest Arab American nonprofit in the U.S. Provides immigration legal aid, employment, health, education, and social services to immigrants and refugees.",
+    phone:"(313) 842-0700", address:"9708 Dix Ave, Dearborn, MI 48120", website:"https://www.accesscommunity.org", hours:"Mon–Fri 9am–5pm",
+    lat:42.3065, lng:-83.1440 },
+  { name:"Samaritas", category:"Immigrant Services", scope:"Citywide", free:true,
+    desc:"Refugee resettlement, foster care, adoption, and social services for immigrants, refugees, and vulnerable families across Michigan. East Jefferson Detroit office.",
+    phone:"(313) 823-7700", address:"8131 E Jefferson Ave, Detroit, MI 48214", website:"https://www.samaritas.org", hours:"Mon–Fri 9am–5pm",
+    lat:42.3526, lng:-82.9939 },
+  { name:"Michigan Immigrant Rights Center", category:"Immigrant Services", scope:"Statewide", free:true,
+    desc:"Free immigration legal services for low-income immigrants and refugees in Michigan including DACA renewals, asylum, green cards, and citizenship.",
+    phone:"(734) 239-6863", address:"15 S Washington St, Suite 201, Ypsilanti, MI 48197", website:"https://www.michiganimmigrant.org", hours:"Mon–Thu 9am–5pm",
+    lat:42.2400, lng:-83.6141 },
+  { name:"Detroit Hispanic Development Corporation", category:"Immigrant Services", scope:"Citywide", free:true,
+    desc:"Youth development, STEM education, workforce training, and community programs for Latino residents and immigrants in southwest Detroit.",
+    phone:"(313) 967-4880", address:"1211 Trumbull St, Detroit, MI 48216", website:"https://www.detroithdc.com", hours:"Mon–Thu 9am–7:30pm",
+    lat:42.3267, lng:-83.0637 }
+];
+
+const neighborhoods = [
+  { name:"East Side", resources:[
+    { name:"East Side Community Network", desc:"Neighborhood development, youth programming, and resident services on Detroit's east side.", phone:"(313) 245-0300", website:"https://www.esdetroit.org", lat:42.3600, lng:-82.9800 },
+    { name:"Samaritas East Side", desc:"Social services including foster care, adoption, senior programs, and refugee services.", phone:"(313) 579-9138", website:"https://www.samaritas.org", lat:42.3580, lng:-82.9750 }
+  ]},
+  { name:"West Side / Brightmoor", resources:[
+    { name:"Brightmoor Alliance", desc:"Community development, blight removal, youth services, and economic development in Brightmoor.", phone:"(313) 387-4732", website:"https://www.brightmooralliance.org", lat:42.4250, lng:-83.2350 },
+    { name:"SER Metro Detroit", desc:"Workforce development and job training programs focused on west side Detroit communities.", phone:"(313) 964-9494", website:"https://www.sermetrodetroit.org", lat:42.4100, lng:-83.2100 }
+  ]},
+  { name:"Southwest Detroit / Mexicantown", resources:[
+    { name:"Southwest Detroit Community Justice Center", desc:"Legal aid, immigrant services, and community advocacy for southwest Detroit residents.", phone:"(313) 967-5599", website:"https://swdetroitcjc.org", lat:42.3200, lng:-83.1050 },
+    { name:"Mexicantown Community Development Corp", desc:"Economic development, housing, and cultural preservation in the Mexicantown corridor.", phone:"(313) 842-0986", website:"https://www.mexicantowndetroit.org", lat:42.3150, lng:-83.1000 }
+  ]},
+  { name:"Midtown / New Center", resources:[
+    { name:"Wayne State University Community Programs", desc:"Educational resources, health services, and community partnerships anchored in Midtown Detroit.", phone:"(313) 577-2424", website:"https://www.wayne.edu", lat:42.3570, lng:-83.0715 },
+    { name:"Midtown Detroit Inc.", desc:"Neighborhood development, safety, and business support for the Midtown district.", phone:"(313) 974-0001", website:"https://www.midtowndetroitinc.org", lat:42.3540, lng:-83.0660 }
+  ]},
+  { name:"Conant Gardens / Pershing", resources:[
+    { name:"Life Remodeled — Durfee Innovation Society", desc:"Year-round community hub inside Durfee Middle School serving the Outer Drive/Hayes/Denby and Conant Gardens neighborhoods. Youth programs, workforce training, health resources, and food access for residents.", phone:"(313) 744-3052", website:"https://www.liferemodeled.org", lat:42.4090, lng:-83.0480 }
+  ]},
+  { name:"Northwest Detroit / Grandmont Rosedale", resources:[
+    { name:"Grandmont Rosedale Development Corp", desc:"Housing, business development, and community programming for Grandmont Rosedale and surrounding northwest neighborhoods.", phone:"(313) 835-1000", website:"https://www.grandmontrosedale.com", lat:42.4050, lng:-83.1750 }
+  ]}
+];
+
+// ─── PAGE SWITCHING ──────────────────────────────────────────────────────────
+function switchPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  document.getElementById('tab-' + page).classList.add('active');
+  if (page === 'map' && !mapInitialized) initMap();
+}
+
+// ─── DIRECTORY LOGIC ─────────────────────────────────────────────────────────
+let activeCategory = null;
+let currentQuery = '';
+
+function showResults(list, title) {
+  document.getElementById('browsePrompt').style.display = 'none';
+  const area = document.getElementById('resultsArea');
+  area.style.display = 'block';
+  document.getElementById('resultsTitle').textContent = title || 'Resources';
+  document.getElementById('resultsCount').textContent = `${list.length} resource${list.length !== 1 ? 's' : ''}`;
+  document.getElementById('clearFilter').style.display = (activeCategory || currentQuery) ? 'inline' : 'none';
+  const container = document.getElementById('resourceList');
+  if (list.length === 0) {
+    container.innerHTML = `<div style="text-align:center;padding:40px 24px;color:var(--ink-light);border:2px dashed var(--border);border-radius:var(--radius);background:var(--white)"><div style="font-size:36px;margin-bottom:8px">🔍</div><p>No resources found. Try a different search or category.</p></div>`;
+    return;
+  }
+  container.innerHTML = list.map(r => `
+    <div class="resource-card">
+      <div class="card-top">
+        <div class="card-name">${r.name}</div>
+        <div class="card-tags">
+          <span class="tag tag-cat">${r.category}</span>
+          <span class="tag tag-scope">${r.scope}</span>
+          ${r.free ? '<span class="tag tag-free">Free</span>' : ''}
+        </div>
+      </div>
+      <div class="card-desc">${r.desc}</div>
+      <div class="card-meta">
+        ${r.phone ? `<span class="meta-item">📞 <a href="tel:${r.phone}">${r.phone}</a></span>` : ''}
+        ${r.address ? `<span class="meta-item">📍 ${r.address}</span>` : ''}
+        ${r.website ? `<span class="meta-item">🌐 <a href="${r.website}" target="_blank" rel="noopener">Visit website</a></span>` : ''}
+        ${r.hours ? `<span class="meta-item">🕐 ${r.hours}</span>` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+function showNeighborhoods(show) {
+  document.getElementById('neighborhoodSection').style.display = show ? 'block' : 'none';
+  if (!show) return;
+  document.getElementById('neighborhoodList').innerHTML = neighborhoods.map(n => `
+    <div style="margin-bottom:32px">
+      <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:12px;color:var(--blue)">${n.name}</h3>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        ${n.resources.map(r => `
+          <div class="resource-card">
+            <div class="card-top">
+              <div class="card-name">${r.name}</div>
+              <div class="card-tags"><span class="tag tag-scope">Neighborhood</span></div>
+            </div>
+            <div class="card-desc">${r.desc}</div>
+            <div class="card-meta">
+              ${r.phone ? `<span class="meta-item">📞 <a href="tel:${r.phone}">${r.phone}</a></span>` : ''}
+              ${r.website ? `<span class="meta-item">🌐 <a href="${r.website}" target="_blank" rel="noopener">Visit website</a></span>` : ''}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function clearFilter() {
+  activeCategory = null;
+  currentQuery = '';
+  document.getElementById('searchInput').value = '';
+  document.querySelectorAll('.cat-tile').forEach(t => t.classList.remove('active'));
+  document.getElementById('aiBox').classList.remove('visible');
+  document.getElementById('browsePrompt').style.display = 'block';
+  document.getElementById('resultsArea').style.display = 'none';
+  showNeighborhoods(false);
+}
+
+document.getElementById('catGrid').addEventListener('click', (e) => {
+  const tile = e.target.closest('.cat-tile');
+  if (!tile) return;
+  const cat = tile.dataset.cat;
+  document.querySelectorAll('.cat-tile').forEach(t => t.classList.remove('active'));
+  if (activeCategory === cat) {
+    activeCategory = null;
+    document.getElementById('aiBox').classList.remove('visible');
+    document.getElementById('browsePrompt').style.display = 'block';
+    document.getElementById('resultsArea').style.display = 'none';
+    showNeighborhoods(false);
+    return;
+  }
+  activeCategory = cat;
+  tile.classList.add('active');
+  const filtered = resources.filter(r => r.category === cat);
+  showResults(filtered, cat);
+  showNeighborhoods(false);
+  document.getElementById('aiBox').classList.remove('visible');
+});
+
+async function doSearch() {
+  const query = document.getElementById('searchInput').value.trim();
+  if (!query) return;
+  currentQuery = query;
+  activeCategory = null;
+  document.querySelectorAll('.cat-tile').forEach(t => t.classList.remove('active'));
+  const lower = query.toLowerCase();
+  const keywords = lower.split(/\s+/);
+  const filtered = resources.filter(r => {
+    const text = `${r.name} ${r.category} ${r.desc}`.toLowerCase();
+    return keywords.some(k => text.includes(k));
+  });
+  showResults(filtered.length > 0 ? filtered : resources, `Results for "${query}"`);
+  showNeighborhoods(true);
+  const aiBox = document.getElementById('aiBox');
+  const aiAnswer = document.getElementById('aiAnswer');
+  aiBox.classList.add('visible');
+  aiAnswer.innerHTML = `<div class="ai-loading">Looking up resources for you <div class="dot-pulse"><span></span><span></span><span></span></div></div>`;
+  const resourceSummary = resources.map(r => `- ${r.name} (${r.category}): ${r.desc.slice(0,80)}...`).join('\n');
+  try {
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-6",
+        max_tokens: 1000,
+        system: `You are a helpful Detroit community resource guide. A resident has asked for help. Based on their need and the available resources below, give a warm, plain-language response (2-4 sentences) that: 1) Acknowledges what they need, 2) Recommends 2-3 specific resources from the list by name, 3) Gives one practical tip. Be direct, human, and caring — like a knowledgeable neighbor, not a chatbot. No bullet points. Do not start with "I".\n\nAvailable Detroit resources:\n${resourceSummary}`,
+        messages: [{ role: "user", content: `A Detroit resident needs help with: "${query}"` }]
+      })
+    });
+    const data = await response.json();
+    const text = data.content?.find(b => b.type === 'text')?.text || "Here are some resources that may help.";
+    aiAnswer.innerHTML = `<p>${text.replace(/\n\n/g, '</p><p>').replace(/\n/g, ' ')}</p>`;
+  } catch (err) {
+    aiAnswer.innerHTML = `<p>Here are the resources that best match your search. Call ahead to confirm availability.</p>`;
+  }
+}
+
+document.getElementById('searchBtn').addEventListener('click', doSearch);
+document.getElementById('searchInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') doSearch(); });
+
+// ─── MAP LOGIC ───────────────────────────────────────────────────────────────
+let mapInitialized = false;
+let googleMap, geocoder, markers = [], infoWindow;
+let userMarker = null;
+
+function initMap() {
+  mapInitialized = true;
+  googleMap = new google.maps.Map(document.getElementById('map'), {
+    center: { lat: 42.3314, lng: -83.0458 },
+    zoom: 12,
+    styles: [
+      { featureType: 'poi', elementType: 'labels', stylers: [{ visibility: 'off' }] },
+      { featureType: 'transit', elementType: 'labels', stylers: [{ visibility: 'off' }] }
+    ],
+    mapTypeControl: false,
+    streetViewControl: false,
+    fullscreenControl: false
+  });
+  geocoder = new google.maps.Geocoder();
+  infoWindow = new google.maps.InfoWindow();
+  plotAllMarkers(resources);
+  renderSidebarAll();
+}
+
+function getCatColor(cat) {
+  const map = {
+    'Food & Hunger': '#E63946',
+    'Housing': '#2196F3',
+    'Health': '#4CAF50',
+    'Employment': '#FF9800',
+    'Youth': '#9C27B0',
+    'Seniors': '#795548',
+    'Legal': '#607D8B',
+    'Utilities': '#FFC107',
+    'Transportation': '#00BCD4',
+    'Family': '#E91E63',
+    'Veterans': '#3F51B5',
+    'Community': '#009688'
+  };
+  return map[cat] || '#003DA5';
+}
+
+function plotAllMarkers(list) {
+  markers.forEach(m => m.setMap(null));
+  markers = [];
+  list.forEach((r, i) => {
+    if (!r.lat || !r.lng) return;
+    const marker = new google.maps.Marker({
+      position: { lat: r.lat, lng: r.lng },
+      map: googleMap,
+      title: r.name,
+      icon: {
+        path: google.maps.SymbolPath.CIRCLE,
+        scale: 9,
+        fillColor: getCatColor(r.category),
+        fillOpacity: 0.95,
+        strokeColor: '#fff',
+        strokeWeight: 2
+      }
+    });
+    marker.addListener('click', () => {
+      infoWindow.setContent(`
+        <div style="font-family:'Inter',sans-serif;max-width:220px;padding:4px">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;margin-bottom:4px">${r.name}</div>
+          <div style="font-size:11px;font-weight:600;color:${getCatColor(r.category)};text-transform:uppercase;margin-bottom:6px">${r.category}</div>
+          <div style="font-size:12px;color:#4A4A4A;margin-bottom:6px">${r.desc.slice(0, 100)}...</div>
+          ${r.phone ? `<div style="font-size:12px">📞 <a href="tel:${r.phone}" style="color:#003DA5">${r.phone}</a></div>` : ''}
+          ${r.website ? `<div style="font-size:12px">🌐 <a href="${r.website}" target="_blank" style="color:#003DA5">Website</a></div>` : ''}
+        </div>
+      `);
+      infoWindow.open(googleMap, marker);
+      highlightSidebarCard(i);
+    });
+    markers.push(marker);
+  });
+}
+
+function renderSidebarAll() {
+  const catFilter = document.getElementById('mapCatFilter').value;
+  const list = catFilter ? resources.filter(r => r.category === catFilter) : resources;
+  document.getElementById('sidebarTitle').textContent = catFilter || 'All Resources';
+  document.getElementById('sidebarSubtitle').textContent = `${list.length} resources across Detroit`;
+  renderSidebarList(list, resources);
+}
+
+function renderSidebarList(list, fullList) {
+  const container = document.getElementById('sidebarList');
+  if (list.length === 0) {
+    container.innerHTML = `<div class="map-empty"><div class="big">🔍</div><p>No resources found nearby. Try expanding your search.</p></div>`;
+    return;
+  }
+  container.innerHTML = list.map(r => {
+    const idx = fullList.indexOf(r);
+    return `<div class="sidebar-card" id="sc-${idx}" onclick="focusMarker(${idx})">
+      <div class="sidebar-card-name">${r.name}</div>
+      <div class="sidebar-card-cat">${r.category} · ${r.scope}</div>
+      <div class="sidebar-card-meta">
+        ${r.phone ? `📞 <a href="tel:${r.phone}">${r.phone}</a><br>` : ''}
+        ${r.address ? `📍 ${r.address}<br>` : ''}
+        ${r.hours ? `🕐 ${r.hours}` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function focusMarker(idx) {
+  if (markers[idx]) {
+    googleMap.panTo(markers[idx].getPosition());
+    googleMap.setZoom(15);
+    google.maps.event.trigger(markers[idx], 'click');
+  }
+  highlightSidebarCard(idx);
+}
+
+function highlightSidebarCard(idx) {
+  document.querySelectorAll('.sidebar-card').forEach(c => c.classList.remove('highlighted'));
+  const el = document.getElementById('sc-' + idx);
+  if (el) { el.classList.add('highlighted'); el.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+}
+
+function doMapSearch() {
+  const input = document.getElementById('mapSearchInput').value.trim();
+  const catFilter = document.getElementById('mapCatFilter').value;
+  if (!input) {
+    const filtered = catFilter ? resources.filter(r => r.category === catFilter) : resources;
+    plotAllMarkers(filtered);
+    renderSidebarList(filtered, resources);
+    document.getElementById('sidebarTitle').textContent = catFilter || 'All Resources';
+    document.getElementById('sidebarSubtitle').textContent = `${filtered.length} resources across Detroit`;
+    return;
+  }
+  const query = input + (input.match(/^\d{5}$/) || input.toLowerCase().includes('detroit') ? '' : ', Detroit, MI');
+  geocoder.geocode({ address: query }, (results, status) => {
+    if (status !== 'OK' || !results[0]) {
+      document.getElementById('sidebarTitle').textContent = 'Location not found';
+      document.getElementById('sidebarSubtitle').textContent = 'Try a ZIP code or neighborhood name';
+      return;
+    }
+    const loc = results[0].geometry.location;
+    googleMap.panTo(loc);
+    googleMap.setZoom(13);
+    if (userMarker) userMarker.setMap(null);
+    userMarker = new google.maps.Marker({
+      position: loc, map: googleMap, title: 'Your location',
+      icon: { path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW, scale: 7, fillColor: '#F5A623', fillOpacity: 1, strokeColor: '#1A1A1A', strokeWeight: 2 }
+    });
+
+    // Sort resources by distance
+    const withDist = resources.map(r => {
+      const d = r.lat && r.lng ? Math.sqrt(Math.pow(r.lat - loc.lat(), 2) + Math.pow(r.lng - loc.lng(), 2)) : 99;
+      return { ...r, dist: d };
+    });
+    withDist.sort((a, b) => a.dist - b.dist);
+    const nearby = withDist.filter(r => r.dist < 0.15);
+    const display = catFilter ? nearby.filter(r => r.category === catFilter) : nearby;
+    const finalList = display.length > 0 ? display : (catFilter ? resources.filter(r => r.category === catFilter) : resources);
+    plotAllMarkers(finalList);
+    renderSidebarList(finalList, resources);
+    document.getElementById('sidebarTitle').textContent = results[0].formatted_address.split(',')[0];
+    document.getElementById('sidebarSubtitle').textContent = `${finalList.length} resource${finalList.length !== 1 ? 's' : ''} nearby`;
+  });
+}
+
+document.getElementById('mapSearchBtn').addEventListener('click', doMapSearch);
+document.getElementById('mapSearchInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') doMapSearch(); });
+document.getElementById('mapCatFilter').addEventListener('change', () => { if (mapInitialized) doMapSearch(); });
+</script>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJ0TaaCXlmaqRRC8VQxbFQdPvN-MMEtvI&libraries=places&callback=Function.prototype"></script>
+</body>
+</html>
