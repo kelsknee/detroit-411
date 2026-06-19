@@ -342,6 +342,8 @@
       <div class="cat-tile" data-cat="Blight Removal"><span class="cat-icon">🗑️</span><span class="cat-name">Blight Removal</span></div>
       <div class="cat-tile" data-cat="Small Business"><span class="cat-icon">💰</span><span class="cat-name">Small Business</span></div>
       <div class="cat-tile" data-cat="Immigrant Services"><span class="cat-icon">🌍</span><span class="cat-name">Immigrant Services</span></div>
+      <div class="cat-tile" data-cat="LGBTQ+"><span class="cat-icon">🏳️‍🌈</span><span class="cat-name">LGBTQ+</span></div>
+      <div class="cat-tile" data-cat="Financial Assistance"><span class="cat-icon">💵</span><span class="cat-name">Financial Assistance</span></div>
     </div>
 
     <div class="ai-box" id="aiBox">
@@ -408,6 +410,8 @@
         <option value="Blight Removal">🏚️ Blight Removal</option>
         <option value="Small Business">💰 Small Business</option>
         <option value="Immigrant Services">🌍 Immigrant Services</option>
+        <option value="LGBTQ+">🏳️‍🌈 LGBTQ+</option>
+        <option value="Financial Assistance">💵 Financial Assistance</option>
       </select>
       <button class="map-search-btn" id="mapSearchBtn">FIND NEARBY</button>
     </div>
@@ -825,17 +829,126 @@ const resources = [
   { name:"Detroit Hispanic Development Corporation", category:"Immigrant Services", scope:"Citywide", free:true,
     desc:"Youth development, STEM education, workforce training, and community programs for Latino residents and immigrants in southwest Detroit.",
     phone:"(313) 967-4880", address:"1211 Trumbull St, Detroit, MI 48216", website:"https://www.detroithdc.com", hours:"Mon–Thu 9am–7:30pm",
-    lat:42.3267, lng:-83.0637 }
+    lat:42.3267, lng:-83.0637 },
+
+  // ── SENIORS (additions) ──
+  { name:"St. Patrick Senior Center", category:"Seniors", scope:"Citywide", free:true,
+    desc:"Welcoming senior center offering daily activities, fitness classes, hot lunches, social programs, and transportation assistance for Detroit seniors. One of the most beloved in the city.",
+    phone:"(313) 833-7080", address:"58 Parsons St, Detroit, MI 48201", website:"https://www.stpatrickdetroit.org", hours:"Mon–Fri 8am–4pm; Sat 9am–1pm",
+    lat:42.3482, lng:-83.0600 },
+  { name:"Hannan Center", category:"Seniors", scope:"Citywide", free:true,
+    desc:"100-year-old nonprofit serving adults 55+ in Detroit with advocacy, health programs, art, fitness, social activities, and personal care assistance. Named for philanthropist Luella Hannan.",
+    phone:"(313) 833-1300", address:"4750 Woodward Ave, Detroit, MI 48201", website:"https://www.hannancenter.org", hours:"Mon–Fri 9am–5pm",
+    lat:42.3557, lng:-83.0631 },
+  { name:"LA SED Senior and Youth Center", category:"Seniors", scope:"Citywide", free:true,
+    desc:"Southwest Detroit community center serving Latino seniors and youth with fitness classes, tax assistance, immigration help, and social services. Bilingual staff available.",
+    phone:"(313) 841-1419", address:"7150 Vernor Hwy, Detroit, MI 48209", website:"https://www.laseddetroit.org", hours:"Mon–Fri 9am–4pm",
+    lat:42.3144, lng:-83.1206 },
+
+  // ── VETERANS (additions) ──
+  { name:"Michigan Veterans Foundation", category:"Veterans", scope:"Citywide", free:true,
+    desc:"Provides safe housing, meals, peer support, and reintegration services for homeless and at-risk Michigan veterans in Detroit. Walk-in welcome.",
+    phone:"(313) 831-5500", address:"4626 Grand River Ave, Detroit, MI 48208", website:"https://www.mvfoundation.org", hours:"Call for intake hours",
+    lat:42.3471, lng:-83.0836 },
+  { name:"Veterans Community Resource & Referral Center", category:"Veterans", scope:"Citywide", free:true,
+    desc:"One-stop hub connecting Detroit-area veterans to housing, employment, benefits, health, and legal services. Walk-in and appointment-based help available seven days a week.",
+    phone:"(313) 576-1580", address:"301 Piquette Ave, Detroit, MI 48202", website:"https://www.va.gov", hours:"Mon–Sun 8am–8pm",
+    lat:42.3682, lng:-83.0664 },
+  { name:"Wayne County Veterans Affairs", category:"Veterans", scope:"Citywide", free:true,
+    desc:"County office helping Wayne County veterans access state and federal benefits, disability claims, housing assistance, and emergency support. Highly rated for personal, compassionate service.",
+    phone:"(313) 224-5045", address:"400 Monroe St, Suite 405, Detroit, MI 48226", website:"https://www.waynecounty.com/elected/clerk/veterans-services.aspx", hours:"Mon–Fri 8:30am–4:30pm",
+    lat:42.3342, lng:-83.0433 },
+
+  // ── EMPLOYMENT (additions) ──
+  { name:"Center for Employment Opportunities", category:"Employment", scope:"Citywide", free:true,
+    desc:"National nonprofit providing immediate, paid transitional employment and job placement for people recently released from incarceration. Detroit office at 7310 Woodward.",
+    phone:"(313) 752-0680", address:"7310 Woodward Ave #701B, Detroit, MI 48202", website:"https://ceoworks.org", hours:"Mon–Fri 8:30am–4:30pm",
+    lat:42.3708, lng:-83.0731 },
+  { name:"Chance for Life", category:"Employment", scope:"Citywide", free:true,
+    desc:"Reentry support for currently and formerly incarcerated individuals, including job training, life skills, mentoring, and housing assistance. Works primarily with Detroit-area MDOC participants.",
+    phone:"(313) 784-9209", address:"2000 Town Center #1140, Southfield, MI 48075", website:"https://www.chanceforlife.org", hours:"Mon–Fri 9am–5pm",
+    lat:42.4774, lng:-83.2457 },
+
+  // ── YOUTH (additions) ──
+  { name:"Brilliant Detroit", category:"Youth", scope:"Citywide", free:true,
+    desc:"Turns vacant houses into neighborhood hubs offering early childhood education, parenting support, health resources, and family programming for children 0–8 and their caregivers. Multiple Detroit locations.",
+    phone:"(313) 483-8992", address:"5675 Larkins St, Detroit, MI 48210", website:"https://www.brilliantdetroit.org", hours:"Mon–Fri 8:30am–5pm",
+    lat:42.3385, lng:-83.1364 },
+  { name:"College Career & Beyond (Midnight Golf)", category:"Youth", scope:"Citywide", free:true,
+    desc:"Mentoring program guiding Detroit high school seniors through college enrollment and graduation. Uses golf as a framework for life skills and professional development. Over 1,500 college students supported.",
+    phone:"(248) 792-9438", address:"7441 Second Ave, Detroit, MI 48202", website:"https://www.midnightgolf.org", hours:"Mon–Fri 9am–5pm",
+    lat:42.3710, lng:-83.0780 },
+  { name:"Detroit Heals Detroit", category:"Youth", scope:"Citywide", free:true,
+    desc:"Youth-led healing hub on Detroit's east side offering mentoring, mental health support, a community fridge, clothing closet, and safe space for young people to grow and connect.",
+    phone:"(313) 403-8374", address:"19510 Alcoy Ave, Detroit, MI 48205", website:"https://www.detroithealsdetroit.org", hours:"Mon–Fri 9am–7pm",
+    lat:42.4387, lng:-82.9886 },
+
+  // ── FAMILY (additions) ──
+  { name:"All Things Women", category:"Family", scope:"Citywide", free:true,
+    desc:"Detroit nonprofit providing clothing, household items, and wraparound support for women in need. Accepts and distributes donations of professional and everyday clothing to women rebuilding stability.",
+    phone:"(313) 733-6265", address:"14750 St. Marys St, Detroit, MI 48227", website:"https://www.allthingswomeninc.org", hours:"Mon–Fri 10am–4pm",
+    lat:42.3964, lng:-83.2057 },
+  { name:"Humble Design Detroit", category:"Family", scope:"Citywide", free:true,
+    desc:"Transforms empty houses into furnished, dignified homes for families and individuals transitioning out of homelessness — using donated furniture and décor. Serves Detroit and surrounding Wayne County.",
+    phone:"(844) 486-2533", address:"21420 Melrose Ave, Southfield, MI 48075", website:"https://www.humbledesign.org", hours:"Mon–Fri 8am–12pm",
+    lat:42.4485, lng:-83.2538 },
+
+  // ── LEGAL (additions) ──
+  { name:"Detroit Justice Center", category:"Legal", scope:"Citywide", free:true,
+    desc:"Community-based legal organization providing civil rights legal services, criminal legal defense, and community advocacy. Focus on economic justice, housing rights, and ending mass incarceration.",
+    phone:"(313) 736-5957", address:"4731 Grand River Ave, Detroit, MI 48208", website:"https://www.detroitjusticecenter.org", hours:"Mon–Thu 9am–5pm",
+    lat:42.3474, lng:-83.0865 },
+  { name:"NAACP Detroit Branch", category:"Legal", scope:"Citywide", free:true,
+    desc:"Detroit's NAACP chapter provides civil rights advocacy, expungement workshops, voter rights education, youth programs, and referrals for residents experiencing discrimination.",
+    phone:"(313) 871-2087", address:"8220 Second Ave, Detroit, MI 48202", website:"https://www.naacpdetroit.org", hours:"Tue–Thu 9am–5pm; Fri 9am–1pm",
+    lat:42.3743, lng:-83.0794 },
+
+  // ── FINANCIAL ASSISTANCE ── (new category)
+  { name:"Accounting Aid Society", category:"Financial Assistance", scope:"Citywide", free:true,
+    desc:"Free tax preparation for low-to-moderate income Detroit residents. Also offers financial coaching, EITC claim help, and year-round tax services at multiple metro Detroit locations.",
+    phone:"(313) 556-1920", address:"3031 W Grand Blvd #621, Detroit, MI 48202", website:"https://www.accountingaidsociety.org", hours:"Mon–Fri 9am–4pm (tax season hours vary)",
+    lat:42.3701, lng:-83.0765 },
+  { name:"Black Family Development", category:"Financial Assistance", scope:"Citywide", free:true,
+    desc:"Provides housing search assistance, financial counseling, and family stability services for Detroit residents. Connects clients to rental housing, budgeting resources, and community support programs.",
+    phone:"(313) 758-0150", address:"2995 E Grand Blvd, Detroit, MI 48202", website:"https://www.bfdi.org", hours:"Mon–Fri 9am–5pm",
+    lat:42.3713, lng:-83.0692 },
+  { name:"Accounting Aid Society", category:"Legal", scope:"Citywide", free:true,
+    desc:"Free tax preparation for low-to-moderate income Detroit residents — including EITC claims, back taxes, and IRS issue resolution. Walk-in and appointment-based at multiple locations.",
+    phone:"(313) 556-1920", address:"3031 W Grand Blvd #621, Detroit, MI 48202", website:"https://www.accountingaidsociety.org", hours:"Mon–Fri 9am–4pm",
+    lat:42.3701, lng:-83.0765 },
+
+  // ── LGBTQ+ ── (new category)
+  { name:"Ruth Ellis Center", category:"LGBTQ+", scope:"Citywide", free:true,
+    desc:"Safe space and support services for LGBTQ+ youth and young adults up to age 24 in Metro Detroit. Offers drop-in services, housing support, mental health, food, and community programming.",
+    phone:"(313) 252-1950", address:"95 Victor St, Highland Park, MI 48203", website:"https://www.ruthelliscenter.org", hours:"Mon–Fri 9am–5pm; Tue until 8pm",
+    lat:42.4078, lng:-83.0945 },
+  { name:"Affirmations", category:"LGBTQ+", scope:"Regional", free:true,
+    desc:"Metro Detroit's LGBTQ+ community center offering support groups, mental health services, community events, and a welcoming space for LGBTQ+ individuals and families. Located in Ferndale.",
+    phone:"(248) 398-7105", address:"290 W Nine Mile Rd, Ferndale, MI 48220", website:"https://www.goaffirmations.org", hours:"Mon–Sat 10am–8pm (Fri until 3:30pm)",
+    lat:42.4608, lng:-83.1381 },
+
+  // ── TRANSPORTATION (additions) ──
+  { name:"SMART ADA Paratransit (DART)", category:"Transportation", scope:"Regional", free:false,
+    desc:"Door-to-door transportation for Wayne, Oakland, and Macomb County residents with disabilities who cannot use fixed-route bus service. Requires eligibility certification. Call to apply.",
+    phone:"(866) 962-5515", address:"Apply via SMART — 535 Griswold St, Detroit", website:"https://www.smartbus.org/Fares-Passes/ADA-Paratransit", hours:"Service hours vary by route",
+    lat:42.3294, lng:-83.0470 },
+  { name:"Feel Better Transportation", category:"Transportation", scope:"Regional", free:true,
+    desc:"Free non-emergency medical transportation for Wayne County residents, especially seniors and those with serious illness. Provides rides to dialysis, cancer treatment, and other recurring medical appointments.",
+    phone:"(586) 531-2828", address:"2000 Town Center, Ste 650, Southfield, MI 48075", website:"https://www.feelbettertransportation.com", hours:"Mon–Fri 7am–7pm",
+    lat:42.4776, lng:-83.2458 }
 ];
 
 const neighborhoods = [
   { name:"East Side", resources:[
     { name:"East Side Community Network", desc:"Neighborhood development, youth programming, and resident services on Detroit's east side.", phone:"(313) 245-0300", website:"https://www.esdetroit.org", lat:42.3600, lng:-82.9800 },
-    { name:"Samaritas East Side", desc:"Social services including foster care, adoption, senior programs, and refugee services.", phone:"(313) 579-9138", website:"https://www.samaritas.org", lat:42.3580, lng:-82.9750 }
+    { name:"Samaritas East Side", desc:"Social services including foster care, adoption, senior programs, and refugee services.", phone:"(313) 579-9138", website:"https://www.samaritas.org", lat:42.3580, lng:-82.9750 },
+    { name:"Detroit Heals Detroit", desc:"Youth-led healing hub offering mentoring, mental health support, a community fridge, and safe space for east side youth.", phone:"(313) 403-8374", website:"https://www.detroithealsdetroit.org", lat:42.4387, lng:-82.9886 },
+    { name:"Camp Restore Detroit", desc:"Faith-based volunteer organization mobilizing teams to restore homes and clean up blocks on Detroit's east side. Hosts volunteers and coordinates neighborhood blight projects.", phone:"(313) 636-4422", website:"https://www.camprestoredetroit.com", lat:42.4273, lng:-82.9749 }
   ]},
   { name:"West Side / Brightmoor", resources:[
     { name:"Brightmoor Alliance", desc:"Community development, blight removal, youth services, and economic development in Brightmoor.", phone:"(313) 387-4732", website:"https://www.brightmooralliance.org", lat:42.4250, lng:-83.2350 },
-    { name:"SER Metro Detroit", desc:"Workforce development and job training programs focused on west side Detroit communities.", phone:"(313) 964-9494", website:"https://www.sermetrodetroit.org", lat:42.4100, lng:-83.2100 }
+    { name:"SER Metro Detroit", desc:"Workforce development and job training programs focused on west side Detroit communities.", phone:"(313) 964-9494", website:"https://www.sermetrodetroit.org", lat:42.4100, lng:-83.2100 },
+    { name:"Brightmoor Connection Food Pantry", desc:"Free food pantry serving Brightmoor and northwest Detroit residents. Includes nutritional education, food prep tips, and a clothing closet. No ID required.", phone:"(313) 740-7688", website:"https://www.brightmoorconnection.org", lat:42.4121, lng:-83.2459 }
   ]},
   { name:"Southwest Detroit / Mexicantown", resources:[
     { name:"Southwest Detroit Community Justice Center", desc:"Legal aid, immigrant services, and community advocacy for southwest Detroit residents.", phone:"(313) 967-5599", website:"https://swdetroitcjc.org", lat:42.3200, lng:-83.1050 },
@@ -850,6 +963,10 @@ const neighborhoods = [
   ]},
   { name:"Northwest Detroit / Grandmont Rosedale", resources:[
     { name:"Grandmont Rosedale Development Corp", desc:"Housing, business development, and community programming for Grandmont Rosedale and surrounding northwest neighborhoods.", phone:"(313) 835-1000", website:"https://www.grandmontrosedale.com", lat:42.4050, lng:-83.1750 }
+  ]},
+  { name:"Hamtramck", resources:[
+    { name:"Detroit Friendship House", desc:"Food pantry serving Hamtramck and northeast Detroit residents with groceries, including halal options. Operates Tuesdays, Thursdays, and Saturdays. Forgotten Harvest card required.", phone:"(313) 871-7443", website:"https://www.detroitfriendshiphouse.org", lat:42.3984, lng:-83.0498 },
+    { name:"Access Community Services — Hamtramck", desc:"Multilingual social services including immigration assistance, employment support, and community referrals for Hamtramck's diverse immigrant population.", phone:"(313) 842-7726", website:"https://www.accesscommunity.org", lat:42.3937, lng:-83.0561 }
   ]}
 ];
 
