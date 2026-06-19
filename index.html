@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Detroit 411 — City Resource Guide</title>
+<!-- ─────────────────────────────────────────────────────────────────────────
+     FONTS
+     Barlow Condensed = bold headers/titles (muscular Detroit feel)
+     Inter = body text, labels, and all UI elements
+     ───────────────────────────────────────────────────────────────────────── -->
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -553,6 +558,7 @@ const resources = [
     desc:"Free legal representation for Detroit renters facing eviction, illegal lockouts, and substandard housing conditions. Walk-in triage available for urgent cases at 36th District Court.",
     phone:"(313) 964-1975", address:"7310 Woodward Ave, Suite 301, Detroit, MI 48202", website:"https://www.nls-mi.org", hours:"Mon–Fri 9am–5pm",
     lat:42.3709, lng:-83.0726 },
+  { name:"Cass Community Social Services — Housing", category:"Renter Protections", scope:"Citywide", free:true,
     desc:"Emergency shelter, transitional housing, and stable affordable housing for Detroit residents experiencing or at risk of homelessness.",
     phone:"(313) 883-2277", address:"11745 Rosa Parks Blvd, Detroit, MI 48206", website:"https://www.casscommunity.org", hours:"Mon–Fri 9am–5pm",
     lat:42.3867, lng:-83.1068 },
@@ -642,9 +648,10 @@ const resources = [
     desc:"United Way administers the Michigan Energy Assistance Program (MEAP) for Metro Detroit, helping low-income households pay heating and cooling bills. Call 211 to apply or get referred.",
     phone:"211", address:"3011 W Grand Blvd, Suite 500, Detroit, MI 48202", website:"https://www.uwsem.org/energy-assistance", hours:"Call 211 anytime",
     lat:42.3699, lng:-83.0776 },
-    desc:"WRAP (Water Residential Assistance Program) helps low-income Detroit residents afford water bills. Income-based payment plans available.",
-    phone:"(313) 267-8000", address:"735 Randolph St, Detroit, MI 48226", website:"https://www.detroitmi.gov/water", hours:"Mon–Fri 8am–5pm",
-    lat:42.3328, lng:-83.0443 },
+  { name:"State Emergency Relief (SER) — Utilities", category:"Utilities", scope:"Statewide", free:true,
+    desc:"Michigan SER program can cover past-due utility bills to prevent shutoffs. Apply through MDHHS or call 211 to be connected to the right office.",
+    phone:"(855) 275-6424", address:"Apply via MDHHS — 8655 Greenfield Rd, Detroit", website:"https://www.michigan.gov/mdhhs/adult-child-serv/assistance/state-emergency-relief", hours:"Mon–Fri 8am–5pm",
+    lat:42.3572, lng:-83.1985 },
   { name:"DTE Energy Assistance", category:"Utilities", scope:"Regional", free:true,
     desc:"Programs to help customers afford electric and gas service: Budget Billing, Low Income Self-Sufficiency Plan (LSP), and State Emergency Relief (SER).",
     phone:"(800) 477-4747", address:"Online or by phone", website:"https://www.dteenergy.com/assistance", hours:"Mon–Fri 8am–6pm",
