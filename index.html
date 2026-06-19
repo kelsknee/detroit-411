@@ -321,6 +321,7 @@
   <main>
     <div class="section-label">Browse by category</div>
     <div class="cat-grid" id="catGrid">
+      <div class="cat-tile" data-cat="Crisis & Emergency"><span class="cat-icon">🆘</span><span class="cat-name">Crisis &amp; Emergency</span></div>
       <div class="cat-tile" data-cat="Food & Hunger"><span class="cat-icon">🥗</span><span class="cat-name">Food &amp; Hunger</span></div>
       <div class="cat-tile" data-cat="Homeownership"><span class="cat-icon">🏠</span><span class="cat-name">Homeownership</span></div>
       <div class="cat-tile" data-cat="Renter Protections"><span class="cat-icon">🔑</span><span class="cat-name">Renter Protections</span></div>
@@ -386,6 +387,7 @@
       </div>
       <select class="map-cat-filter" id="mapCatFilter">
         <option value="">All categories</option>
+        <option value="Crisis & Emergency">🆘 Crisis & Emergency</option>
         <option value="Food & Hunger">🥗 Food & Hunger</option>
         <option value="Homeownership">🏠 Homeownership</option>
         <option value="Renter Protections">🔑 Renter Protections</option>
@@ -426,6 +428,48 @@
 <script>
 // ─── DATA ───────────────────────────────────────────────────────────────────
 const resources = [
+  // ── CRISIS & EMERGENCY ──
+  { name:"211 — Michigan 2-1-1", category:"Crisis & Emergency", scope:"Statewide", free:true,
+    desc:"Dial 2-1-1 any time, day or night, to be connected to a trained specialist who can refer you to local help for food, housing, utilities, crisis counseling, health care, and more. Operated by United Way for Southeastern Michigan.",
+    phone:"211", address:"Call or text 211 from anywhere in Michigan", website:"https://www.mi211.org", hours:"24/7",
+    lat:42.3699, lng:-83.0776 },
+  { name:"United Way for Southeastern Michigan", category:"Crisis & Emergency", scope:"Citywide", free:true,
+    desc:"Operates the 211 helpline connecting Detroit residents to emergency assistance. Also administers energy assistance (MEAP), financial stability programs, and community investment across Metro Detroit.",
+    phone:"(313) 226-9200", address:"3011 W Grand Blvd, Suite 500, Detroit, MI 48202", website:"https://www.uwsem.org", hours:"Mon–Fri 8am–5pm",
+    lat:42.3699, lng:-83.0776 },
+  { name:"Michigan Dept. of Health & Human Services (MDHHS)", category:"Crisis & Emergency", scope:"Citywide", free:true,
+    desc:"State agency that administers emergency assistance programs including State Emergency Relief (SER) for rent, utilities, and home repair. Also handles SNAP, Medicaid, and childcare assistance. Detroit office on Greenfield.",
+    phone:"(313) 943-5200", address:"8655 Greenfield Rd, Detroit, MI 48228", website:"https://www.michigan.gov/mdhhs", hours:"Mon–Fri 8am–5pm",
+    lat:42.3572, lng:-83.1985 },
+  { name:"State Emergency Relief (SER)", category:"Crisis & Emergency", scope:"Statewide", free:true,
+    desc:"Michigan's emergency financial assistance program covering rent, mortgage, utilities, home repair, and burial costs for households in crisis. Apply through your local MDHHS office or online.",
+    phone:"(855) 275-6424", address:"Apply via MDHHS — 8655 Greenfield Rd, Detroit", website:"https://www.michigan.gov/mdhhs/adult-child-serv/assistance/state-emergency-relief", hours:"Mon–Fri 8am–5pm",
+    lat:42.3572, lng:-83.1985 },
+  { name:"988 Suicide & Crisis Lifeline", category:"Crisis & Emergency", scope:"Statewide", free:true,
+    desc:"Call or text 988 for free, confidential support during a mental health or suicidal crisis. Available 24/7 with trained counselors. Connects to local Detroit Wayne crisis services when needed.",
+    phone:"988", address:"Call or text 988 from anywhere", website:"https://988lifeline.org", hours:"24/7",
+    lat:42.3314, lng:-83.0458 },
+  { name:"Catholic Charities of Southeast Michigan", category:"Crisis & Emergency", scope:"Citywide", free:true,
+    desc:"Emergency financial assistance for rent, utilities, food, and clothing for Detroit residents in crisis. Services available regardless of faith background. Also offers counseling and immigration services.",
+    phone:"(313) 883-2100", address:"9851 Hamilton Ave, Detroit, MI 48202", website:"https://ccsem.org", hours:"Mon–Fri 9am–5pm",
+    lat:42.3800, lng:-83.0980 },
+  { name:"Capuchin Soup Kitchen — Emergency Services", category:"Crisis & Emergency", scope:"Citywide", free:true,
+    desc:"In addition to daily meals, the Capuchin Services Center provides emergency food boxes, clothing, showers, and basic needs assistance for Detroit residents experiencing crisis.",
+    phone:"(313) 579-2100", address:"1820 Mt Elliott St, Detroit, MI 48207", website:"https://www.cskdetroit.org", hours:"Mon–Sun 9am–5pm",
+    lat:42.3516, lng:-83.0147 },
+  { name:"Detroit Rescue Mission Ministries", category:"Crisis & Emergency", scope:"Citywide", free:true,
+    desc:"24/7 emergency shelter, meals, and addiction recovery for Detroit's homeless and at-risk residents. 100+ beds, warming center in winter, free breakfast/lunch/dinner daily.",
+    phone:"(313) 993-6703", address:"3535 Third Ave, Detroit, MI 48201", website:"https://www.drmm.org", hours:"24/7",
+    lat:42.3446, lng:-83.0657 },
+  { name:"Wayne Metro — Emergency Assistance", category:"Crisis & Emergency", scope:"Citywide", free:true,
+    desc:"Emergency rent, utility, and basic needs assistance for Wayne County residents in crisis. Apply in person or by phone. Also a gateway to MEAP energy assistance and State Emergency Relief.",
+    phone:"(313) 388-9799", address:"7310 Woodward Ave, Detroit, MI 48202", website:"https://www.waynemetro.org", hours:"Mon–Fri 8:30am–5pm",
+    lat:42.3708, lng:-83.0729 },
+  { name:"Neighborhood Legal Services Michigan", category:"Crisis & Emergency", scope:"Citywide", free:true,
+    desc:"Free legal help for low-income residents in housing, benefits, and family law emergencies. Handles same-day triage for urgent eviction and benefits termination cases.",
+    phone:"(313) 964-1975", address:"7310 Woodward Ave, Suite 301, Detroit, MI 48202", website:"https://www.nls-mi.org", hours:"Mon–Fri 9am–5pm",
+    lat:42.3709, lng:-83.0726 },
+
   { name:"Gleaners Community Food Bank", category:"Food & Hunger", scope:"Citywide", free:true,
     desc:"Largest food bank in Southeast Michigan. Distributes food through a network of pantries, soup kitchens, and shelters.",
     phone:"(866) 453-2637", address:"2131 Beaufait St, Detroit, MI 48207", website:"https://www.gcfb.org", hours:"Mon–Fri 7am–4:30pm",
@@ -505,11 +549,18 @@ const resources = [
     desc:"Housing Resource Center connects Detroit renters to emergency rental assistance, eviction prevention, and affordable housing listings. Behavioral health support also available.",
     phone:"(313) 963-6601", address:"1600 Porter St, Detroit, MI 48216", website:"https://www.swsol.org", hours:"Mon–Fri 8:30am–7pm",
     lat:42.3276, lng:-83.0660 },
-  { name:"Cass Community Social Services — Housing", category:"Renter Protections", scope:"Citywide", free:true,
+  { name:"Neighborhood Legal Services Michigan — Tenants", category:"Renter Protections", scope:"Citywide", free:true,
+    desc:"Free legal representation for Detroit renters facing eviction, illegal lockouts, and substandard housing conditions. Walk-in triage available for urgent cases at 36th District Court.",
+    phone:"(313) 964-1975", address:"7310 Woodward Ave, Suite 301, Detroit, MI 48202", website:"https://www.nls-mi.org", hours:"Mon–Fri 9am–5pm",
+    lat:42.3709, lng:-83.0726 },
     desc:"Emergency shelter, transitional housing, and stable affordable housing for Detroit residents experiencing or at risk of homelessness.",
     phone:"(313) 883-2277", address:"11745 Rosa Parks Blvd, Detroit, MI 48206", website:"https://www.casscommunity.org", hours:"Mon–Fri 9am–5pm",
     lat:42.3867, lng:-83.1068 },
 
+  { name:"988 Suicide & Crisis Lifeline", category:"Health", scope:"Statewide", free:true,
+    desc:"Call or text 988 for free, confidential mental health and crisis support 24/7. Trained counselors connect callers to local Detroit Wayne Integrated Health Network services when needed.",
+    phone:"988", address:"Call or text 988 from anywhere", website:"https://988lifeline.org", hours:"24/7",
+    lat:42.3314, lng:-83.0458 },
   { name:"Detroit Health Department", category:"Health", scope:"Citywide", free:true,
     desc:"Public health clinics offering immunizations, STI testing, family planning, and maternal/infant health services to Detroit residents.",
     phone:"(313) 876-4000", address:"Various neighborhood clinics, Detroit, MI", website:"https://detroitmi.gov/health", hours:"Mon–Fri 8am–5pm",
@@ -571,7 +622,26 @@ const resources = [
     desc:"Free civil legal services for low-income Detroit and Wayne County residents — eviction defense, benefits appeals, family law, and immigration.",
     phone:"(313) 967-5800", address:"613 Abbott St, Suite 6, Detroit, MI 48226", website:"https://www.ladadetroit.org", hours:"Mon–Fri 9am–5pm",
     lat:42.3305, lng:-83.0555 },
+  { name:"Neighborhood Legal Services Michigan", category:"Legal", scope:"Citywide", free:true,
+    desc:"Free legal aid for low-income Wayne County residents in housing, benefits, family law, and consumer matters. Walk-in and phone intake available.",
+    phone:"(313) 964-1975", address:"7310 Woodward Ave, Suite 301, Detroit, MI 48202", website:"https://www.nls-mi.org", hours:"Mon–Fri 9am–5pm",
+    lat:42.3709, lng:-83.0726 },
   { name:"Detroit Water & Sewerage Dept — Assistance", category:"Utilities", scope:"Citywide", free:true,
+    desc:"WRAP (Water Residential Assistance Program) helps low-income Detroit residents afford water bills. Income-based payment plans available.",
+    phone:"(313) 267-8000", address:"735 Randolph St, Detroit, MI 48226", website:"https://www.detroitmi.gov/water", hours:"Mon–Fri 8am–5pm",
+    lat:42.3328, lng:-83.0443 },
+  { name:"DTE Energy Assistance", category:"Utilities", scope:"Regional", free:true,
+    desc:"Programs to help customers afford electric and gas service: Budget Billing, Low Income Self-Sufficiency Plan (LSP), and State Emergency Relief (SER).",
+    phone:"(800) 477-4747", address:"Online or by phone", website:"https://www.dteenergy.com/assistance", hours:"Mon–Fri 8am–6pm",
+    lat:42.3314, lng:-83.0358 },
+  { name:"Michigan Energy Assistance Program", category:"Utilities", scope:"Statewide", free:true,
+    desc:"State program providing heating and cooling assistance to low-income households. Apply through Wayne Metro or other local community action agencies.",
+    phone:"(800) 292-4431", address:"Apply via Wayne Metro or other local agencies", website:"https://www.michigan.gov/mdhhs/assistance/energyassistance", hours:"Mon–Fri 8am–5pm",
+    lat:42.3708, lng:-83.0729 },
+  { name:"United Way for Southeastern Michigan — MEAP", category:"Utilities", scope:"Citywide", free:true,
+    desc:"United Way administers the Michigan Energy Assistance Program (MEAP) for Metro Detroit, helping low-income households pay heating and cooling bills. Call 211 to apply or get referred.",
+    phone:"211", address:"3011 W Grand Blvd, Suite 500, Detroit, MI 48202", website:"https://www.uwsem.org/energy-assistance", hours:"Call 211 anytime",
+    lat:42.3699, lng:-83.0776 },
     desc:"WRAP (Water Residential Assistance Program) helps low-income Detroit residents afford water bills. Income-based payment plans available.",
     phone:"(313) 267-8000", address:"735 Randolph St, Detroit, MI 48226", website:"https://www.detroitmi.gov/water", hours:"Mon–Fri 8am–5pm",
     lat:42.3328, lng:-83.0443 },
@@ -663,7 +733,10 @@ const resources = [
     phone:"(313) 226-6075", address:"477 Michigan Ave, Suite 1819, Detroit, MI 48226", website:"https://www.sba.gov/offices/district/mi/detroit", hours:"Mon–Fri 8am–4:30pm",
     lat:42.3311, lng:-83.0532 },
 
-  // ── FOOD (additions) ──
+  { name:"Catholic Charities of Southeast Michigan", category:"Food & Hunger", scope:"Citywide", free:true,
+    desc:"Emergency food, clothing, and financial assistance for Detroit residents in need regardless of faith background. Food pantry and crisis support available at multiple Metro Detroit locations.",
+    phone:"(313) 883-2100", address:"9851 Hamilton Ave, Detroit, MI 48202", website:"https://ccsem.org", hours:"Mon–Fri 9am–5pm",
+    lat:42.3800, lng:-83.0980 },
   { name:"Capuchin Soup Kitchen", category:"Food & Hunger", scope:"Citywide", free:true,
     desc:"Hot meals, food pantry, clothing, and showers for Detroit residents in need. Serves thousands daily with dignity. Grocery-style food pantry by appointment.",
     phone:"(313) 579-2100", address:"1820 Mt Elliott St, Detroit, MI 48207", website:"https://www.cskdetroit.org", hours:"Mon–Sun 9am–5pm",
