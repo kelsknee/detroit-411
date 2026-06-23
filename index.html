@@ -995,6 +995,52 @@
 
 <!-- Google Maps -->
 <script>
+// ═══════════════════════════════════════════════════════════════════════════
+// EDITOR'S GUIDE — How to update this file in GitHub
+// ═══════════════════════════════════════════════════════════════════════════
+//
+// ── TO FIX A BROKEN WEBSITE LINK ────────────────────────────────────────
+//   Find the organization name below, then change the website:"..." value.
+//   All links start with https://
+//   Example: website:"https://www.example-org.org"
+//
+// ── TO UPDATE A PHONE NUMBER ────────────────────────────────────────────
+//   Find the organization name, then change the phone:"..." value.
+//   Example: phone:"(313) 555-1234"
+//
+// ── TO ADD A NEW RESOURCE ───────────────────────────────────────────────
+//   Copy any existing entry (one full { ... }, block).
+//   Paste it before the closing ]; of the resources array.
+//   Fill in all fields. The category: value must exactly match
+//   one of the 18 category names used in the tiles above.
+//   lat/lng are GPS coordinates — find them on Google Maps.
+//
+// ── TO REMOVE A RESOURCE ────────────────────────────────────────────────
+//   Delete the entire { ... }, block for that organization.
+//   Make sure the entry before it still has a comma at the end.
+//
+// ── CATEGORIES (18 total) ───────────────────────────────────────────────
+//   "Crisis & Emergency"   "Food & Hunger"        "Homeownership"
+//   "Renter Protections"   "Health"               "Employment"
+//   "Youth"                "Seniors"              "Legal"
+//   "Utilities"            "Transportation"       "Family"
+//   "Veterans"             "Small Business"       "Blight Removal"
+//   "Immigrant Services"   "LGBTQ+"               "Financial Assistance"
+//
+// ── EACH RESOURCE ENTRY HAS THESE FIELDS ────────────────────────────────
+//   name:     organization name (required)
+//   category: must match one of the 18 categories exactly (required)
+//   scope:    "Citywide", "East Side", etc.
+//   free:     true or false
+//   desc:     description shown on the card (1-3 sentences)
+//   phone:    phone number string, e.g. "(313) 555-1234"
+//   address:  street address string
+//   website:  full URL starting with https://
+//   hours:    hours string, e.g. "Mon–Fri 9am–5pm"
+//   lat/lng:  GPS decimal coordinates for the map pin
+//
+// ═══════════════════════════════════════════════════════════════════════════
+
 // ─── DATA ───────────────────────────────────────────────────────────────────
 const resources = [
   // ── CRISIS & EMERGENCY ──
@@ -1036,7 +1082,7 @@ const resources = [
     lat:42.3708, lng:-83.0729 },
   { name:"Neighborhood Legal Services Michigan", category:"Crisis & Emergency", scope:"Citywide", free:true,
     desc:"Free legal help for low-income residents in housing, benefits, and family law emergencies. Handles same-day triage for urgent eviction and benefits termination cases.",
-    phone:"(313) 964-1975", address:"7310 Woodward Ave, Suite 301, Detroit, MI 48202", website:"https://www.nls-mi.org", hours:"Mon–Fri 9am–5pm",
+    phone:"(313) 964-1975", address:"7310 Woodward Ave, Suite 301, Detroit, MI 48202", website:"https://www.nlsmichigan.org", hours:"Mon–Fri 9am–5pm",
     lat:42.3709, lng:-83.0726 },
 
   { name:"Gleaners Community Food Bank", category:"Food & Hunger", scope:"Citywide", free:true,
@@ -1078,7 +1124,7 @@ const resources = [
     lat:42.3401, lng:-83.0614 },
   { name:"Detroit Housing Commission — Homeownership Programs", category:"Homeownership", scope:"Citywide", free:true,
     desc:"Administers HUD-assisted homeownership vouchers and programs that help low-income Detroit residents transition from renting to owning a home.",
-    phone:"(313) 877-8000", address:"1301 E Jefferson Ave, Detroit, MI 48207", website:"https://www.detroithousingcomm.org", hours:"Mon–Fri 8:30am–3:45pm",
+    phone:"(313) 877-8000", address:"1301 E Jefferson Ave, Detroit, MI 48207", website:"https://www.dhcmi.org", hours:"Mon–Fri 8:30am–3:45pm",
     lat:42.3338, lng:-83.0342 },
   { name:"Southwest Solutions — Housing Counseling", category:"Homeownership", scope:"Citywide", free:true,
     desc:"HUD-approved housing counseling for Detroit homeowners covering foreclosure prevention, mortgage default, and first-time homebuyer education.",
@@ -1096,7 +1142,7 @@ const resources = [
   // ── RENTER PROTECTIONS ──
   { name:"Detroit Housing Commission — Section 8", category:"Renter Protections", scope:"Citywide", free:true,
     desc:"Administers Housing Choice Vouchers (Section 8) providing rental assistance to low-income Detroit residents. Also manages public housing. Wait lists may apply.",
-    phone:"(313) 877-8000", address:"1301 E Jefferson Ave, Detroit, MI 48207", website:"https://www.detroithousingcomm.org", hours:"Mon–Fri 8:30am–3:45pm",
+    phone:"(313) 877-8000", address:"1301 E Jefferson Ave, Detroit, MI 48207", website:"https://www.dhcmi.org", hours:"Mon–Fri 8:30am–3:45pm",
     lat:42.3338, lng:-83.0342 },
   { name:"United Community Housing Coalition — Renters", category:"Renter Protections", scope:"Citywide", free:true,
     desc:"Tenant advocacy, eviction defense, and rental assistance for Detroit renters. Helps residents understand their rights, navigate eviction court, and find emergency rental funds.",
@@ -1120,7 +1166,7 @@ const resources = [
     lat:42.3276, lng:-83.0660 },
   { name:"Neighborhood Legal Services Michigan — Tenants", category:"Renter Protections", scope:"Citywide", free:true,
     desc:"Free legal representation for Detroit renters facing eviction, illegal lockouts, and substandard housing conditions. Walk-in triage available for urgent cases at 36th District Court.",
-    phone:"(313) 964-1975", address:"7310 Woodward Ave, Suite 301, Detroit, MI 48202", website:"https://www.nls-mi.org", hours:"Mon–Fri 9am–5pm",
+    phone:"(313) 964-1975", address:"7310 Woodward Ave, Suite 301, Detroit, MI 48202", website:"https://www.nlsmichigan.org", hours:"Mon–Fri 9am–5pm",
     lat:42.3709, lng:-83.0726 },
   { name:"Cass Community Social Services — Housing", category:"Renter Protections", scope:"Citywide", free:true,
     desc:"Emergency shelter, transitional housing, and stable affordable housing for Detroit residents experiencing or at risk of homelessness.",
@@ -1194,7 +1240,7 @@ const resources = [
     lat:42.3305, lng:-83.0555 },
   { name:"Neighborhood Legal Services Michigan", category:"Legal", scope:"Citywide", free:true,
     desc:"Free legal aid for low-income Wayne County residents in housing, benefits, family law, and consumer matters. Walk-in and phone intake available.",
-    phone:"(313) 964-1975", address:"7310 Woodward Ave, Suite 301, Detroit, MI 48202", website:"https://www.nls-mi.org", hours:"Mon–Fri 9am–5pm",
+    phone:"(313) 964-1975", address:"7310 Woodward Ave, Suite 301, Detroit, MI 48202", website:"https://www.nlsmichigan.org", hours:"Mon–Fri 9am–5pm",
     lat:42.3709, lng:-83.0726 },
   { name:"Detroit Water & Sewerage Dept — Assistance", category:"Utilities", scope:"Citywide", free:true,
     desc:"WRAP (Water Residential Assistance Program) helps low-income Detroit residents afford water bills. Income-based payment plans available.",
@@ -1267,7 +1313,7 @@ const resources = [
     lat:42.3820, lng:-83.1110 },
   { name:"Southwest Detroit Environmental Vision", category:"Blight Removal", scope:"Citywide", free:true,
     desc:"Community-based organization addressing environmental blight, illegal dumping, and lot beautification in southwest Detroit neighborhoods through resident-led cleanup programs.",
-    phone:"(313) 842-1961", address:"4218 Brandon St, Detroit, MI 48209", website:"https://www.swdetroitenvironmentalvision.org", hours:"Mon–Fri 9am–5pm",
+    phone:"(313) 842-1961", address:"4218 Brandon St, Detroit, MI 48209", website:"https://www.swdev.org", hours:"Mon–Fri 9am–5pm",
     lat:42.3247, lng:-83.0972 },
 
   // ── SMALL BUSINESS ──
@@ -1293,11 +1339,11 @@ const resources = [
     lat:42.3700, lng:-83.0762 },
   { name:"Michigan Women Forward", category:"Small Business", scope:"Citywide", free:true,
     desc:"Provides microloans, business coaching, and financial tools for women entrepreneurs in Detroit and across Michigan. Specializes in supporting women-owned businesses facing capital gaps.",
-    phone:"(313) 962-1920", address:"1155 Brewery Park Blvd, Suite 350, Detroit, MI 48207", website:"https://www.miwomenforward.org", hours:"Mon–Fri 9am–5pm",
+    phone:"(313) 962-1920", address:"1155 Brewery Park Blvd, Suite 350, Detroit, MI 48207", website:"https://www.miwf.org", hours:"Mon–Fri 9am–5pm",
     lat:42.3433, lng:-83.0422 },
   { name:"Detroit Hispanic Development Corporation — Business", category:"Small Business", scope:"Citywide", free:true,
     desc:"Business development resources, workspace, and entrepreneurship training for Latino small business owners in Detroit, with a focus on southwest Detroit corridors.",
-    phone:"(313) 967-4880", address:"1211 Trumbull St, Detroit, MI 48216", website:"https://www.detroithdc.com", hours:"Mon–Thu 9am–7:30pm",
+    phone:"(313) 967-4880", address:"1211 Trumbull St, Detroit, MI 48216", website:null, hours:"Mon–Thu 9am–7:30pm",
     lat:42.3267, lng:-83.0637 },
   { name:"U.S. Small Business Administration — Detroit", category:"Small Business", scope:"Statewide", free:true,
     desc:"Federal agency offering SBA loans, disaster assistance, and small business resources. Detroit district office serves Michigan entrepreneurs with lending programs, training, and government contracting help.",
@@ -1318,7 +1364,7 @@ const resources = [
     lat:42.3446, lng:-83.0657 },
   { name:"Salvation Army Detroit", category:"Food & Hunger", scope:"Citywide", free:true,
     desc:"Emergency food assistance, clothing, utility help, and holiday programs for Detroit families. Food pantry and seasonal toy and coat drives.",
-    phone:"(313) 897-2914", address:"3729 W Chicago Blvd, Detroit, MI 48206", website:"https://www.salvationarmymichigan.org", hours:"Mon–Fri; call for hours",
+    phone:"(313) 897-2914", address:"3729 W Chicago Blvd, Detroit, MI 48206", website:"https://www.salvationarmyusa.org", hours:"Mon–Fri; call for hours",
     lat:42.3727, lng:-83.1209 },
   { name:"GenesisHOPE", category:"Food & Hunger", scope:"Citywide", free:true,
     desc:"Community development nonprofit on Detroit's east side offering food pantry, financial coaching, and neighborhood health programs.",
@@ -1332,7 +1378,7 @@ const resources = [
   // ── HEALTH (additions) ──
   { name:"Detroit Community Health Connection", category:"Health", scope:"Citywide", free:true,
     desc:"Federally Qualified Health Center providing primary care, dental, and behavioral health on a sliding fee scale. Multiple locations across Detroit.",
-    phone:"(313) 822-0900", address:"13901 E Jefferson Ave, Detroit, MI 48215", website:"https://www.dchcdetroit.org", hours:"Mon/Wed/Thu/Fri 9am–5pm; Tue 10am–6pm",
+    phone:"(313) 822-0900", address:"13901 E Jefferson Ave, Detroit, MI 48215", website:"https://www.dchc.org", hours:"Mon/Wed/Thu/Fri 9am–5pm; Tue 10am–6pm",
     lat:42.3718, lng:-82.9481 },
   { name:"Advantage Health Centers", category:"Health", scope:"Citywide", free:true,
     desc:"Federally Qualified Health Center with multiple Detroit locations offering medical, dental, and behavioral health care regardless of ability to pay.",
@@ -1352,7 +1398,7 @@ const resources = [
   // ── YOUTH (additions) ──
   { name:"Boys & Girls Clubs of Southeastern Michigan", category:"Youth", scope:"Citywide", free:true,
     desc:"After-school and summer programs for Detroit youth including academic support, sports, arts, and career development at multiple locations citywide.",
-    phone:"(313) 523-4540", address:"16500 Tireman Ave, Detroit, MI 48228", website:"https://www.bgcsem.org", hours:"Mon–Fri 3pm–close; varies by location",
+    phone:"(313) 523-4540", address:"16500 Tireman Ave, Detroit, MI 48228", website:"https://www.bgca.org", hours:"Mon–Fri 3pm–close; varies by location",
     lat:42.3512, lng:-83.2086 },
   { name:"Detroit PAL", category:"Youth", scope:"Citywide", free:true,
     desc:"Police Athletic League offering free and low-cost youth sports, arts, and academic programs for Detroit kids ages 5–17 at The Corner Ballpark and partner sites.",
@@ -1388,21 +1434,21 @@ const resources = [
     lat:42.2400, lng:-83.6141 },
   { name:"Detroit Hispanic Development Corporation", category:"Immigrant Services", scope:"Citywide", free:true,
     desc:"Youth development, STEM education, workforce training, and community programs for Latino residents and immigrants in southwest Detroit.",
-    phone:"(313) 967-4880", address:"1211 Trumbull St, Detroit, MI 48216", website:"https://www.detroithdc.com", hours:"Mon–Thu 9am–7:30pm",
+    phone:"(313) 967-4880", address:"1211 Trumbull St, Detroit, MI 48216", website:null, hours:"Mon–Thu 9am–7:30pm",
     lat:42.3267, lng:-83.0637 },
 
   // ── SENIORS (additions) ──
   { name:"St. Patrick Senior Center", category:"Seniors", scope:"Citywide", free:true,
     desc:"Welcoming senior center offering daily activities, fitness classes, hot lunches, social programs, and transportation assistance for Detroit seniors. One of the most beloved in the city.",
-    phone:"(313) 833-7080", address:"58 Parsons St, Detroit, MI 48201", website:"https://www.stpatrickdetroit.org", hours:"Mon–Fri 8am–4pm; Sat 9am–1pm",
+    phone:"(313) 833-7080", address:"58 Parsons St, Detroit, MI 48201", website:"https://www.stpatrickcenter.org", hours:"Mon–Fri 8am–4pm; Sat 9am–1pm",
     lat:42.3482, lng:-83.0600 },
   { name:"Hannan Center", category:"Seniors", scope:"Citywide", free:true,
     desc:"100-year-old nonprofit serving adults 55+ in Detroit with advocacy, health programs, art, fitness, social activities, and personal care assistance. Named for philanthropist Luella Hannan.",
-    phone:"(313) 833-1300", address:"4750 Woodward Ave, Detroit, MI 48201", website:"https://www.hannancenter.org", hours:"Mon–Fri 9am–5pm",
+    phone:"(313) 833-1300", address:"4750 Woodward Ave, Detroit, MI 48201", website:"https://www.hannan.org", hours:"Mon–Fri 9am–5pm",
     lat:42.3557, lng:-83.0631 },
   { name:"LA SED Senior and Youth Center", category:"Seniors", scope:"Citywide", free:true,
     desc:"Southwest Detroit community center serving Latino seniors and youth with fitness classes, tax assistance, immigration help, and social services. Bilingual staff available.",
-    phone:"(313) 841-1419", address:"7150 Vernor Hwy, Detroit, MI 48209", website:"https://www.laseddetroit.org", hours:"Mon–Fri 9am–4pm",
+    phone:"(313) 841-1419", address:"7150 Vernor Hwy, Detroit, MI 48209", website:"https://www.lased.org", hours:"Mon–Fri 9am–4pm",
     lat:42.3144, lng:-83.1206 },
 
   // ── VETERANS (additions) ──
@@ -1456,7 +1502,7 @@ const resources = [
   // ── LEGAL (additions) ──
   { name:"Detroit Justice Center", category:"Legal", scope:"Citywide", free:true,
     desc:"Community-based legal organization providing civil rights legal services, criminal legal defense, and community advocacy. Focus on economic justice, housing rights, and ending mass incarceration.",
-    phone:"(313) 736-5957", address:"4731 Grand River Ave, Detroit, MI 48208", website:"https://www.detroitjusticecenter.org", hours:"Mon–Thu 9am–5pm",
+    phone:"(313) 736-5957", address:"4731 Grand River Ave, Detroit, MI 48208", website:"https://www.djclaw.org", hours:"Mon–Thu 9am–5pm",
     lat:42.3474, lng:-83.0865 },
   { name:"NAACP Detroit Branch", category:"Legal", scope:"Citywide", free:true,
     desc:"Detroit's NAACP chapter provides civil rights advocacy, expungement workshops, voter rights education, youth programs, and referrals for residents experiencing discrimination.",
@@ -1494,25 +1540,45 @@ const resources = [
     lat:42.3294, lng:-83.0470 },
   { name:"Feel Better Transportation", category:"Transportation", scope:"Regional", free:true,
     desc:"Free non-emergency medical transportation for Wayne County residents, especially seniors and those with serious illness. Provides rides to dialysis, cancer treatment, and other recurring medical appointments.",
-    phone:"(586) 531-2828", address:"2000 Town Center, Ste 650, Southfield, MI 48075", website:"https://www.feelbettertransportation.com", hours:"Mon–Fri 7am–7pm",
+    phone:"(586) 531-2828", address:"2000 Town Center, Ste 650, Southfield, MI 48075", website:"https://www.feelbetter.org", hours:"Mon–Fri 7am–7pm",
     lat:42.4776, lng:-83.2458 }
 ];
 
+// ═══════════════════════════════════════════════════════════════════════════
+// NEIGHBORHOODS — How to edit this section
+// ═══════════════════════════════════════════════════════════════════════════
+//
+// Each neighborhood block has:
+//   name:      neighborhood display name
+//   resources: array of orgs specific to that neighborhood
+//
+// Each org inside resources has:
+//   name:     org name
+//   desc:     one-line description
+//   phone:    phone number string
+//   website:  full URL starting with https://
+//   lat/lng:  GPS coordinates for the map pin
+//
+// TO ADD A NEIGHBORHOOD: copy an existing block and paste before the ]; 
+// TO ADD AN ORG to a neighborhood: copy an entry inside its resources:[]
+//   and paste before that neighborhood's closing ]
+// TO FIX A LINK: find the org, change the website:"..." value
+// ═══════════════════════════════════════════════════════════════════════════
 const neighborhoods = [
   { name:"East Side", resources:[
-    { name:"East Side Community Network", desc:"Neighborhood development, youth programming, and resident services on Detroit's east side.", phone:"(313) 245-0300", website:"https://www.esdetroit.org", lat:42.3600, lng:-82.9800 },
+    { name:"East Side Community Network", desc:"Neighborhood development, youth programming, and resident services on Detroit's east side.", phone:"(313) 245-0300", website:"https://www.escn.org", lat:42.3600, lng:-82.9800 },
     { name:"Samaritas East Side", desc:"Social services including foster care, adoption, senior programs, and refugee services.", phone:"(313) 579-9138", website:"https://www.samaritas.org", lat:42.3580, lng:-82.9750 },
     { name:"Detroit Heals Detroit", desc:"Youth-led healing hub offering mentoring, mental health support, a community fridge, and safe space for east side youth.", phone:"(313) 403-8374", website:"https://www.detroithealsdetroit.org", lat:42.4387, lng:-82.9886 },
-    { name:"Camp Restore Detroit", desc:"Faith-based volunteer organization mobilizing teams to restore homes and clean up blocks on Detroit's east side. Hosts volunteers and coordinates neighborhood blight projects.", phone:"(313) 636-4422", website:"https://www.camprestoredetroit.com", lat:42.4273, lng:-82.9749 }
+    { name:"Camp Restore Detroit", desc:"Faith-based volunteer organization mobilizing teams to restore homes and clean up blocks on Detroit's east side. Hosts volunteers and coordinates neighborhood blight projects.", phone:"(313) 636-4422", website:"https://www.camprestore.org", lat:42.4273, lng:-82.9749 }
   ]},
   { name:"West Side / Brightmoor", resources:[
     { name:"Brightmoor Alliance", desc:"Community development, blight removal, youth services, and economic development in Brightmoor.", phone:"(313) 387-4732", website:"https://www.brightmooralliance.org", lat:42.4250, lng:-83.2350 },
-    { name:"SER Metro Detroit", desc:"Workforce development and job training programs focused on west side Detroit communities.", phone:"(313) 964-9494", website:"https://www.sermetrodetroit.org", lat:42.4100, lng:-83.2100 },
+    { name:"SER Metro Detroit", desc:"Workforce development and job training programs focused on west side Detroit communities.", phone:"(313) 964-9494", website:"https://www.ser-jobs.org", lat:42.4100, lng:-83.2100 },
     { name:"Brightmoor Connection Food Pantry", desc:"Free food pantry serving Brightmoor and northwest Detroit residents. Includes nutritional education, food prep tips, and a clothing closet. No ID required.", phone:"(313) 740-7688", website:"https://www.brightmoorconnection.org", lat:42.4121, lng:-83.2459 }
   ]},
   { name:"Southwest Detroit / Mexicantown", resources:[
-    { name:"Southwest Detroit Community Justice Center", desc:"Legal aid, immigrant services, and community advocacy for southwest Detroit residents.", phone:"(313) 967-5599", website:"https://swdetroitcjc.org", lat:42.3200, lng:-83.1050 },
-    { name:"Mexicantown Community Development Corp", desc:"Economic development, housing, and cultural preservation in the Mexicantown corridor.", phone:"(313) 842-0986", website:"https://www.mexicantowndetroit.org", lat:42.3150, lng:-83.1000 }
+    { name:"Southwest Detroit Community Justice Center", desc:"Legal aid, immigrant services, and community advocacy for southwest Detroit residents.", phone:"(313) 967-5599", website:"https://www.sdcjc.org", lat:42.3200, lng:-83.1050 },
+    { name:"Mexicantown Community Development Corp", desc:"Economic development, housing, and cultural preservation in the Mexicantown corridor.", phone:"(313) 842-0986", website:"https://www.mexicantowncdc.org", lat:42.3150, lng:-83.1000 }
   ]},
   { name:"Midtown / New Center", resources:[
     { name:"Wayne State University Community Programs", desc:"Educational resources, health services, and community partnerships anchored in Midtown Detroit.", phone:"(313) 577-2424", website:"https://www.wayne.edu", lat:42.3570, lng:-83.0715 },
