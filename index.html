@@ -1612,7 +1612,7 @@ function switchPage(page) {
 }
 
 // ─── DIRECTORY LOGIC ─────────────────────────────────────────────────────────
-let activeCategory = null;
+let activeCategories = new Set();
 let currentQuery = '';
 
 function showResults(list, title) {
@@ -1621,7 +1621,7 @@ function showResults(list, title) {
   area.style.display = 'block';
   document.getElementById('resultsTitle').textContent = title || 'Resources';
   document.getElementById('resultsCount').textContent = `${list.length} resource${list.length !== 1 ? 's' : ''}`;
-  document.getElementById('clearFilter').style.display = (activeCategory || currentQuery) ? 'inline' : 'none';
+  document.getElementById('clearFilter').style.display = (activeCategories.size || currentQuery) ? 'inline' : 'none';
   const container = document.getElementById('resourceList');
   if (list.length === 0) {
     container.innerHTML = `<div style="text-align:center;padding:40px 24px;color:var(--ink-light);border:2px dashed var(--border);border-radius:var(--radius);background:var(--white)"><div style="font-size:36px;margin-bottom:8px">🔍</div><p>No resources found. Try a different search or category.</p></div>`;
@@ -1674,7 +1674,7 @@ function showNeighborhoods(show) {
 }
 
 function clearFilter() {
-  activeCategory = null;
+  activeCategories.clear();
   currentQuery = '';
   document.getElementById('searchInput').value = '';
   document.querySelectorAll('.cat-tile').forEach(t => t.classList.remove('active'));
@@ -1688,19 +1688,41 @@ document.getElementById('catGrid').addEventListener('click', (e) => {
   const tile = e.target.closest('.cat-tile');
   if (!tile) return;
   const cat = tile.dataset.cat;
-  document.querySelectorAll('.cat-tile').forEach(t => t.classList.remove('active'));
-  if (activeCategory === cat) {
-    activeCategory = null;
+  const isMulti = e.ctrlKey || e.metaKey;
+
+  if (isMulti) {
+    // Ctrl/Cmd click: toggle this category in the set
+    if (activeCategories.has(cat)) {
+      activeCategories.delete(cat);
+      tile.classList.remove('active');
+    } else {
+      activeCategories.add(cat);
+      tile.classList.add('active');
+    }
+  } else {
+    // Normal click: if only this one is active, deselect; otherwise select only this one
+    const onlyThisActive = activeCategories.size === 1 && activeCategories.has(cat);
+    document.querySelectorAll('.cat-tile').forEach(t => t.classList.remove('active'));
+    activeCategories.clear();
+    if (!onlyThisActive) {
+      activeCategories.add(cat);
+      tile.classList.add('active');
+    }
+  }
+
+  if (activeCategories.size === 0) {
     document.getElementById('aiBox').classList.remove('visible');
     document.getElementById('browsePrompt').style.display = 'block';
     document.getElementById('resultsArea').style.display = 'none';
     showNeighborhoods(false);
     return;
   }
-  activeCategory = cat;
-  tile.classList.add('active');
-  const filtered = resources.filter(r => r.category === cat);
-  showResults(filtered, cat);
+
+  const filtered = resources.filter(r => activeCategories.has(r.category));
+  const title = activeCategories.size === 1
+    ? [...activeCategories][0]
+    : [...activeCategories].join(' + ');
+  showResults(filtered, title);
   showNeighborhoods(false);
   document.getElementById('aiBox').classList.remove('visible');
 });
@@ -1709,7 +1731,7 @@ async function doSearch() {
   const query = document.getElementById('searchInput').value.trim();
   if (!query) return;
   currentQuery = query;
-  activeCategory = null;
+  activeCategories.clear();
   document.querySelectorAll('.cat-tile').forEach(t => t.classList.remove('active'));
   const lower = query.toLowerCase();
   const keywords = lower.split(/\s+/);
