@@ -144,9 +144,9 @@
     padding: 14px 10px 12px; text-align: center; cursor: pointer; transition: all 0.15s;
   }
   .cat-tile:hover { border-color: var(--blue); background: var(--blue-light); }
-  .cat-tile.active { border-color: var(--blue); background: var(--blue); }
-  .cat-tile.active .cat-icon { filter: brightness(10); }
-  .cat-tile.active .cat-name { color: var(--white); }
+  .cat-tile.active { border-color: var(--blue); background: var(--white); box-shadow: 0 0 0 2px var(--blue); }
+  .cat-tile.active .cat-icon { filter: none; }
+  .cat-tile.active .cat-name { color: var(--blue); font-weight: 700; }
   .cat-icon { font-size: 26px; margin-bottom: 6px; display: block; }
   .cat-name { font-size: 12px; font-weight: 600; color: var(--ink-mid); line-height: 1.3; }
 
