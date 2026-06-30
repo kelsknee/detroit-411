@@ -29,6 +29,43 @@
   }
   body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; }
 
+  /* ALERT BANNER */
+  .alert-banner {
+    background: #C0202A;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+  .alert-banner.hidden { display: none; }
+  .alert-banner-text {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+    flex: 1;
+    justify-content: center;
+  }
+  .alert-banner-text:hover { text-decoration: underline; }
+  .alert-banner-icon { font-size: 16px; }
+  .alert-banner-close {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 2px 6px;
+    opacity: 0.85;
+  }
+  .alert-banner-close:hover { opacity: 1; }
+  @media (max-width: 640px) {
+    .alert-banner { font-size: 12.5px; padding: 8px 10px; }
+  }
+
   /* NAV */
   header {
     background: var(--blue);
@@ -413,6 +450,14 @@
 </style>
 </head>
 <body>
+
+<div id="alertBanner" class="alert-banner">
+  <div class="alert-banner-text" onclick="goToAlertResource()">
+    <span class="alert-banner-icon">🌡️</span>
+    <span><strong>Heat Advisory:</strong> Heat index forecast above 90°. Tap for cooling centers &amp; safety tips.</span>
+  </div>
+  <button class="alert-banner-close" onclick="dismissAlertBanner()" aria-label="Dismiss">✕</button>
+</div>
 
 <header>
   <div class="header-logo" onclick="switchPage('directory')">
@@ -3181,6 +3226,49 @@ function showNeighborhoods(show) {
     </div>
   `).join('');
 }
+
+// ── EMERGENCY ALERT BANNER ──────────────────────────────────────────────
+// To activate: set ALERT_ACTIVE to true and edit ALERT_TEXT / ALERT_CATEGORY.
+// To deactivate: set ALERT_ACTIVE to false.
+// Each new alert message (different ALERT_TEXT) will reappear even if a
+// past alert was dismissed, since dismissal is keyed to the message text.
+const ALERT_ACTIVE = true;
+const ALERT_TEXT = '<strong>Heat Advisory:</strong> Heat index forecast above 90°. Tap for cooling centers &amp; safety tips.';
+const ALERT_ICON = '🌡️';
+const ALERT_CATEGORY = 'Crisis & Emergency';
+
+function initAlertBanner() {
+  const banner = document.getElementById('alertBanner');
+  if (!ALERT_ACTIVE) { banner.classList.add('hidden'); return; }
+  const dismissKey = 'alertDismissed_' + ALERT_TEXT.length + '_' + ALERT_TEXT.slice(0, 20);
+  if (sessionStorage.getItem(dismissKey) === '1') { banner.classList.add('hidden'); return; }
+  banner.querySelector('.alert-banner-text').innerHTML =
+    `<span class="alert-banner-icon">${ALERT_ICON}</span><span>${ALERT_TEXT}</span>`;
+  banner.classList.remove('hidden');
+}
+
+function dismissAlertBanner() {
+  const dismissKey = 'alertDismissed_' + ALERT_TEXT.length + '_' + ALERT_TEXT.slice(0, 20);
+  sessionStorage.setItem(dismissKey, '1');
+  document.getElementById('alertBanner').classList.add('hidden');
+}
+
+function goToAlertResource() {
+  switchPage('directory');
+  document.querySelectorAll('.cat-tile').forEach(t => t.classList.remove('active'));
+  activeCategories.clear();
+  activeCategories.add(ALERT_CATEGORY);
+  const tile = document.querySelector(`.cat-tile[data-cat="${ALERT_CATEGORY}"]`);
+  if (tile) tile.classList.add('active');
+  const filtered = resources.filter(r => activeCategories.has(r.category));
+  showResults(filtered, ALERT_CATEGORY);
+  document.getElementById('aiBox').classList.remove('visible');
+  setTimeout(() => {
+    document.getElementById('resultsArea').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 50);
+}
+
+initAlertBanner();
 
 function clearFilter() {
   activeCategories.clear();
