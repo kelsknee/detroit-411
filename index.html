@@ -3254,18 +3254,7 @@ function dismissAlertBanner() {
 }
 
 function goToAlertResource() {
-  switchPage('directory');
-  document.querySelectorAll('.cat-tile').forEach(t => t.classList.remove('active'));
-  activeCategories.clear();
-  activeCategories.add(ALERT_CATEGORY);
-  const tile = document.querySelector(`.cat-tile[data-cat="${ALERT_CATEGORY}"]`);
-  if (tile) tile.classList.add('active');
-  const filtered = resources.filter(r => activeCategories.has(r.category));
-  showResults(filtered, ALERT_CATEGORY);
-  document.getElementById('aiBox').classList.remove('visible');
-  setTimeout(() => {
-    document.getElementById('resultsArea').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, 50);
+  window.open('https://detroitmi.gov/departments/emergency-management-homeland-security/shelters-warming-and-cooling-centers/cooling-centers', '_blank', 'noopener');
 }
 
 initAlertBanner();
