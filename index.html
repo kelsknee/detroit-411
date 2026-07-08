@@ -1354,6 +1354,10 @@ const resources = [
     desc:"Full-service VA hospital providing medical, mental health, surgical, and specialty care for eligible veterans in the Detroit metro area.",
     phone:"(313) 576-1000", address:"4646 John R St, Detroit, MI 48201", website:"https://www.va.gov/detroit-health-care", hours:"24/7",
     lat:42.3558, lng:-83.0590 },
+  { name:"City of Detroit – Office of Veterans Affairs", category:"Veterans", scope:"Citywide", free:true,
+    desc:"City office (under the Civil Rights, Inclusion & Opportunity Department) providing advocacy, economic empowerment, resource connections, and recognition for Detroit veterans—links residents to benefits, jobs, housing, education, health care, and digital equity resources.",
+    phone:"(313) 224-4950", address:"2 Woodward Ave, Suite 1240, Detroit, MI 48226", website:"https://detroitmi.gov/departments/civil-rights-inclusion-opportunity-department/office-veterans-affairs", hours:"Mon–Fri 8:30am–4:30pm",
+    lat:42.3302, lng:-83.0463 },
   { name:"Michigan Veterans Affairs Agency", category:"Veterans", scope:"Statewide", free:true,
     desc:"State agency connecting Michigan veterans and families to federal and state benefits including education, employment, housing, and disability claims.",
     phone:"(800) 642-4838", address:"3423 N Martin Luther King Jr Blvd, Lansing, MI", website:"https://www.michigan.gov/mvaa", hours:"Mon–Fri 8am–5pm",
@@ -1506,7 +1510,7 @@ const resources = [
   // ── VETERANS (additions) ──
   { name:"Michigan Veterans Foundation", category:"Veterans", scope:"Citywide", free:true,
     desc:"Provides safe housing, meals, peer support, and reintegration services for homeless and at-risk Michigan veterans in Detroit. Walk-in welcome.",
-    phone:"(313) 831-5500", address:"4626 Grand River Ave, Detroit, MI 48208", website:"https://www.mvfoundation.org", hours:"Call for intake hours",
+    phone:"(313) 831-5500", address:"4626 Grand River Ave, Detroit, MI 48208", website:"https://www.michiganveteransfoundation.org", hours:"Call for intake hours",
     lat:42.3471, lng:-83.0836 },
   { name:"Veterans Community Resource & Referral Center", category:"Veterans", scope:"Citywide", free:true,
     desc:"One-stop hub connecting Detroit-area veterans to housing, employment, benefits, health, and legal services. Walk-in and appointment-based help available seven days a week.",
@@ -2123,11 +2127,6 @@ const resources = [
     lat:42.3472, lng:-83.066 },
 
   // ── NEW BATCH 4 (Community Infrastructure): Renter Protections ──
-  { name:"Southwest Detroit Community Benefits Coalition", category:"Renter Protections", scope:"Citywide", free:true,
-    desc:"Resident-led coalition negotiating community benefits from large development projects in Southwest Detroit to ensure low-income neighbors share in growth.",
-    phone:"", address:"Southwest Detroit, MI", website:"https://swdetroitcbc.org", hours:"Community meetings – see website",
-    lat:42.3245, lng:-83.1192 },
-
   // ── NEW BATCH 4 (Community Infrastructure): Small Business ──
 
   // ── NEW BATCH 4 (Community Infrastructure): Utilities ──
@@ -2167,16 +2166,6 @@ const resources = [
     phone:"(313) 964-0618", address:"2727 Second Ave Ste 322, Detroit, MI 48201", website:"https://www.mwro.org", hours:"Mon–Fri 10am–4pm",
     lat:42.3441, lng:-83.0534 },
 
-  { name:"Detroit Environmental Agenda", category:"Renter Protections", scope:"Citywide", free:true,
-    desc:"Coalition of Detroit environmental justice groups coordinating on air quality, water access, climate, and green space equity across the city.",
-    phone:"", address:"Detroit, MI", website:"https://www.detroitenvironmentalagenda.org", hours:"Mon–Fri 9am–5pm",
-    lat:null, lng:null },
-
-  { name:"Coalition for Property Tax Justice", category:"Renter Protections", scope:"Citywide", free:true,
-    desc:"Advocates for Detroit homeowners who were illegally over-assessed and overtaxed between 2010–2016—working to secure reparations and prevent future illegal assessments.",
-    phone:"", address:"Detroit, MI", website:"https://www.detroitpropertytaxjustice.com", hours:"Mon–Fri 9am–5pm",
-    lat:null, lng:null },
-
   { name:"Make Your Date – Detroit", category:"Health", scope:"Citywide", free:true,
     desc:"Community-based maternal health initiative reducing Black infant and maternal mortality in Detroit through education, doulas, and advocacy.",
     phone:"(313) 745-7400", address:"4160 John R St, Detroit, MI 48201", website:"https://www.makeyourdate.org", hours:"Mon–Fri 9am–5pm",
@@ -2191,11 +2180,6 @@ const resources = [
     desc:"Wraparound community services including youth development, family support, immigration assistance, and civic engagement for Detroit's Latino community.",
     phone:"(313) 841-8722", address:"8 W Alexandrine Ave, Detroit, MI 48201", website:"https://www.dhdc1.org", hours:"Mon–Fri 9am–5pm",
     lat:42.3507, lng:-83.0630 },
-
-  { name:"Southwest Detroit Environmental Vision (SDEV)", category:"Renter Protections", scope:"Citywide", free:true,
-    desc:"Resident-led environmental justice organization in Southwest Detroit fighting industrial pollution, advocating for clean air, and building green infrastructure.",
-    phone:"(313) 842-2931", address:"6723 W Vernor Hwy, Detroit, MI 48209", website:"https://www.sdevdetroit.org", hours:"Mon–Fri 10am–4pm",
-    lat:42.3302, lng:-83.1192 },
 
   { name:"Boggs Center to Nurture Community Leadership", category:"Youth", scope:"Citywide", free:true,
     desc:"Detroit-rooted organization inspired by Grace Lee Boggs fostering community visioning, transformative organizing, and youth leadership development.",
@@ -2558,13 +2542,13 @@ const resources = [
     lat:null, lng:null },
 
   // ── VERIFIED BATCH 6: Veterans ──
-  { name:"Michigan Veterans Legal Help Project", category:"Veterans", scope:"Statewide", free:true,
-    desc:"Free civil legal aid for Michigan veterans covering housing, benefits, discharge upgrades, and family law—phone intake available for Detroit vets.",
-    phone:"(517) 394-9490", address:"Statewide; Detroit veterans eligible", website:"https://www.lsscm.org/veterans", hours:"Mon–Fri 9am–5pm",
-    lat:null, lng:null },
+  { name:"Legal Aid and Defender Association – Veterans Unit", category:"Veterans", scope:"Citywide", free:true,
+    desc:"Free civil legal aid for Detroit-area veterans covering housing, homelessness prevention, benefits, and family law. LAD is the largest legal aid provider in Michigan, serving Wayne, Oakland, and Macomb counties.",
+    phone:"(313) 967-5800", address:"613 Abbott St, Detroit, MI 48226", website:"https://ladadetroit.org/services", hours:"Mon–Fri 9am–5pm",
+    lat:42.3291, lng:-83.0458 },
   { name:"Team Red White & Blue – Detroit Chapter", category:"Veterans", scope:"Citywide", free:true,
     desc:"Connects veterans to community through physical and social activities—runs free fitness events and social gatherings for Detroit-area veterans.",
-    phone:"(585) 296-25426", address:"Detroit, MI", website:"https://www.teamrwb.org/chapter/detroit", hours:"Weekly events – see website",
+    phone:"", address:"Detroit, MI", website:"https://www.teamrwb.org/chapter/detroit", hours:"Weekly events – see website",
     lat:null, lng:null },
 
   // ── VERIFIED BATCH 6: Youth ──
@@ -2626,10 +2610,10 @@ const resources = [
     phone:"(313) 224-1000", address:"500 Griswold St, Detroit, MI 48226", website:"https://www.detroitmeansbusiness.com", hours:"Mon–Fri 9am–5pm",
     lat:42.3291, lng:-83.0470 },
 
-  { name:"Detroit Mural Arts Program", category:"Blight Removal", scope:"Citywide", free:true,
-    desc:"City-run program coordinating public murals on vacant buildings and blighted walls across Detroit—transforms eyesores into neighborhood landmarks.",
-    phone:"(313) 833-7900", address:"65 Cadillac Square, Detroit, MI 48226", website:"https://detroitmi.gov/departments/recreation", hours:"Mon–Fri 8am–5pm",
-    lat:42.3319, lng:-83.0458 },
+  { name:"City Walls (Blight Abatement Artist Residency Program)", category:"Blight Removal", scope:"Citywide", free:true,
+    desc:"City of Detroit program (General Services Dept) coordinating public murals on vacant buildings, viaducts, and blighted walls—transforms eyesores into neighborhood landmarks. Property owners who receive a graffiti-related blight violation ticket can commission a mural to satisfy part of the remediation requirement.",
+    phone:"", address:"Detroit, MI", website:"https://detroitmi.gov/departments/general-services-department/city-walls", hours:"See website for current open calls",
+    lat:null, lng:null },
 
   { name:"Dearborn/Detroit USCIS Field Office", category:"Immigrant Services", scope:"Citywide", free:true,
     desc:"Local U.S. Citizenship and Immigration Services office handling immigration applications, green cards, naturalization, and in-person appointments for Metro Detroit.",
@@ -2640,11 +2624,6 @@ const resources = [
     desc:"State-registered earn-while-you-learn apprenticeships in construction, healthcare, manufacturing, and tech—no college debt, full pay from day one.",
     phone:"(313) 456-3090", address:"3423 E Jefferson Ave, Detroit, MI 48207", website:"https://www.michigan.gov/leo/bureaus-agencies/wd/apprenticeship", hours:"Mon–Fri 8am–5pm",
     lat:42.3378, lng:-82.9943 },
-
-  { name:"Wayne County Veterans Affairs", category:"Veterans", scope:"Citywide", free:true,
-    desc:"Wayne County office connecting Detroit veterans to benefits, housing, healthcare, and community resources—walk-in assistance and claims help available.",
-    phone:"(313) 224-0229", address:"600 Randolph St, Detroit, MI 48226", website:"https://www.waynecounty.com/veterans", hours:"Mon–Fri 8:30am–4:30pm",
-    lat:42.3319, lng:-83.0438 },
 
   { name:"Neighborhoods.com Detroit Resource Hubs", category:"Crisis & Emergency", scope:"Citywide", free:true,
     desc:"City-operated neighborhood resource centers embedding staff in communities to connect residents to city services, permits, and programs.",
@@ -2662,10 +2641,6 @@ const resources = [
     desc:"Advocates for historic preservation and adaptive reuse of Detroit buildings—connecting owners to grants and tax credits to rehabilitate rather than demolish.",
     phone:"(313) 577-3559", address:"4735 Cass Ave, Detroit, MI 48201", website:"https://www.preservationdetroit.org", hours:"Mon–Fri 9am–5pm",
     lat:42.3536, lng:-83.0657 },
-  { name:"Fitzgerald Revitalization Project", category:"Blight Removal", scope:"Citywide", free:true,
-    desc:"City-initiated neighborhood stabilization in Fitzgerald—demolishing dangerous structures, greening vacant lots, and rehabbing homes for low-income buyers.",
-    phone:"(313) 224-1000", address:"Fenkell Ave & Livernois Ave, Detroit, MI 48238", website:"https://www.detroitmi.gov/fitzgerald", hours:"Mon–Fri 8am–5pm",
-    lat:42.4065, lng:-83.149 },
   { name:"Southwest Detroit Business Association – Blight", category:"Blight Removal", scope:"Citywide", free:true,
     desc:"Manages commercial blight removal, facade improvements, and storefront activation along the Vernor Highway corridor in Southwest Detroit.",
     phone:"(313) 842-0986", address:"7752 W Vernor Hwy, Detroit, MI 48209", website:"https://www.sdba.biz", hours:"Mon–Fri 9am–5pm",
@@ -2853,6 +2828,11 @@ const resources = [
     desc:"Builds and rehabilitates homes for low-income Detroit families using volunteer labor—affordable mortgage with no-interest financing for qualifying families.",
     phone:"(313) 521-6691", address:"220 Bagley Ave Ste 850, Detroit, MI 48226", website:"https://www.habitatdetroit.org", hours:"Mon–Fri 9am–5pm",
     lat:42.3308, lng:-83.0476 },
+  { name:"Coalition for Property Tax Justice", category:"Homeownership", scope:"Citywide", free:true,
+    desc:"Collective of Detroit grassroots organizations advocating for homeowners who were illegally over-assessed and overtaxed between 2010–2016—working toward compensation, ending illegal assessments, and pausing tax foreclosures pending review. Runs the Property Tax Appeal Project with University of Michigan Law School.",
+    phone:"", address:"Detroit, MI", website:"https://www.illegalforeclosures.org", hours:"See website",
+    lat:null, lng:null },
+
   { name:"Michigan State Housing Development Authority – Down Payment Assistance", category:"Homeownership", scope:"Statewide", free:true,
     desc:"MI Home Loan program offering down payment assistance grants up to $10,000 for first-time Detroit homebuyers—combined with low fixed-rate mortgages.",
     phone:"(517) 373-8370", address:"Statewide; Detroit applications accepted", website:"https://www.michigan.gov/mshda/homeownership/mi-home-loan", hours:"Mon–Fri 8am–5pm",
@@ -2925,10 +2905,10 @@ const resources = [
     desc:"Call 2-1-1 to be connected to emergency rental assistance, eviction prevention, and housing stability resources in Detroit—free, multilingual, 24/7.",
     phone:"211", address:"Detroit, MI", website:"https://www.uwsem.org/211", hours:"24/7",
     lat:null, lng:null },
-  { name:"Right to Counsel Detroit", category:"Renter Protections", scope:"Citywide", free:true,
-    desc:"Detroit's expanding right-to-counsel program providing free attorneys to low-income tenants in eviction court—administered through Legal Aid & Defender.",
-    phone:"(313) 967-5555", address:"613 Abbott St, Detroit, MI 48226", website:"https://www.ladadetroit.org", hours:"Mon–Fri 9am–5pm",
-    lat:42.3291, lng:-83.0458 },
+  { name:"Right to Counsel Detroit – Office of Eviction Defense", category:"Renter Protections", scope:"Citywide", free:true,
+    desc:"City of Detroit program (via a 2022 ordinance) guaranteeing free attorneys to tenants at or below 200% of the federal poverty line facing eviction at the 36th District Court. Attorneys are on-site in Room 417; walk in on your hearing date or call ahead. Delivered through partner legal orgs including UCHC, LADA, and Lakeshore Legal Aid. NOTE: funding beyond mid-2026 is uncertain — call to confirm current availability.",
+    phone:"(313) 965-2200", address:"36th District Court, Room 417, 421 Madison St, Detroit, MI 48226", website:"https://detroitmi.gov/departments/law-department/office-eviction-defense-right-counsel", hours:"Mon–Fri 8am–4:30pm",
+    lat:42.3312, lng:-83.0463 },
   { name:"Access to Justice – Michigan Supreme Court", category:"Renter Protections", scope:"Statewide", free:true,
     desc:"State court program expanding access to legal help for self-represented Detroit litigants in eviction cases—court navigators and self-help resources.",
     phone:"", address:"Michigan Supreme Court; Detroit courts covered", website:"https://www.courts.michigan.gov/administration/scao/resources/access-to-justice/", hours:"During court hours",
