@@ -1665,8 +1665,8 @@ const resources = [
   // ── NEW: Transportation ──
   { name:"Transportation Riders United (TRU)", category:"Transportation", scope:"Citywide", free:true,
     desc:"Advocates for improved DDOT bus service, transit equity, and better connections for Detroit's transit-dependent residents.",
-    phone:"(313) 963-8872", address:"1245 Woodward Ave Ste 2, Detroit, MI 48226", website:"https://www.detroittransit.org", hours:"Mon–Fri 9am–5pm",
-    lat:42.3312, lng:-83.0486 },
+    phone:"(313) 963-8872", address:"PO Box 2668, Detroit, MI 48202", website:"https://www.detroittransit.org", hours:"Mon–Fri 9am–5pm",
+    lat:null, lng:null },
 
   // ── NEW: Youth ──
   { name:"Detroit Parent Network", category:"Youth", scope:"Citywide", free:true,
@@ -1828,13 +1828,13 @@ const resources = [
 
   // ── NEW BATCH 2: LGBTQ+ ──
   { name:"LGBT Detroit", category:"LGBTQ+", scope:"Citywide", free:true,
-    desc:"Detroit's oldest LGBTQ+ organization providing HIV prevention, testing, support groups, and community programs for queer Detroiters.",
-    phone:"(313) 537-7000", address:"5510 Woodward Ave, Detroit, MI 48202", website:"https://www.lgbtdetroit.org", hours:"Mon–Fri 9am–5pm",
-    lat:42.363, lng:-83.064 },
-  { name:"Unified HIV Health and Beyond", category:"LGBTQ+", scope:"Citywide", free:true,
-    desc:"HIV prevention, testing, treatment support, housing, and case management for people living with HIV/AIDS and those at risk in Metro Detroit.",
-    phone:"(313) 446-9800", address:"2301 Woodward Ave, Detroit, MI 48201", website:"https://www.unified-hiv.org", hours:"Mon–Fri 8:30am–5pm",
-    lat:42.3441, lng:-83.0534 },
+    desc:"North America's largest Black-founded and led LGBT+ nonprofit, active since 1994. Provides HIV prevention/testing, crisis intervention for survivors of violence, support groups, mental health therapy, and community programs including the annual Hotter Than July pride celebration.",
+    phone:"(313) 397-2127", address:"20025 Greenfield Rd, Detroit, MI 48235", website:"https://www.lgbtdetroit.org", hours:"Mon–Fri 9:30am–5:30pm",
+    lat:42.4308, lng:-83.1848 },
+  { name:"Vivent Health + UNIFIED", category:"LGBTQ+", scope:"Citywide", free:true,
+    desc:"HIV prevention, testing, treatment support, housing, and case management for people living with HIV/AIDS and those at risk in Metro Detroit. UNIFIED merged with Vivent Health in 2024; continues operating locally under the combined name.",
+    phone:"(313) 446-9800", address:"3968 Mt Elliott St, Detroit, MI 48207", website:"https://viventhealth.org/detroit", hours:"Mon–Fri 10am–2pm",
+    lat:42.3540, lng:-83.0311 },
   { name:"Jim Toy Community Center", category:"LGBTQ+", scope:"Regional", free:true,
     desc:"LGBTQ+ social services, support groups, legal aid access, and advocacy—serves Metro Detroit LGBTQ+ community including Detroit residents.",
     phone:"(734) 994-8979", address:"304 E Liberty St, Ann Arbor, MI 48104", website:"https://www.jimtoycenter.org", hours:"Mon–Fri 10am–6pm",
@@ -1843,10 +1843,10 @@ const resources = [
     desc:"Detroit-based organization led by and for transgender women of color—provides peer support, resources, advocacy, and community safety programs.",
     phone:"", address:"Detroit, MI", website:"https://www.transsistasofcolor.org", hours:"Call for hours",
     lat:42.3314, lng:-83.0458 },
-  { name:"PFLAG Detroit", category:"LGBTQ+", scope:"Citywide", free:true,
-    desc:"Support, education, and advocacy for LGBTQ+ people and their families—monthly meetings and resources for parents and loved ones in Detroit.",
-    phone:"(313) 537-7000", address:"Detroit, MI", website:"https://pflag.org/chapter/pflag-detroit", hours:"Monthly meetings – see website",
-    lat:42.3314, lng:-83.0458 },
+  { name:"PFLAG Detroit", category:"LGBTQ+", scope:"Regional", free:true,
+    desc:"Support, education, and advocacy for LGBTQ+ people and their families since 1987—free monthly meetings for parents, loved ones, and allies in the Detroit area. Meets 2nd Sunday of each month, 2pm.",
+    phone:"", address:"Lutheran Church of the Master, 3333 Coolidge Hwy, Troy, MI 48084", website:"https://www.pflagdetroit.org", hours:"2nd Sunday monthly, 2pm (except Mother's Day, Easter, Christmas)",
+    lat:42.5645, lng:-83.1502 },
 
   // ── NEW BATCH 2: Legal ──
   { name:"Clean Slate Clinic – Wayne County", category:"Legal", scope:"Citywide", free:true,
@@ -2367,11 +2367,6 @@ const resources = [
     desc:"Ride assistance program connecting low-income Detroit residents to free or subsidized rides to work, medical appointments, and essential services.",
     phone:"(313) 226-9200", address:"One Woodward Ave Ste 900, Detroit, MI 48226", website:"https://www.uwsem.org", hours:"Mon–Fri 8am–5pm",
     lat:42.3312, lng:-83.0476 },
-  { name:"Wheels of Success", category:"Transportation", scope:"Regional", free:true,
-    desc:"Donates reliable used cars to low-income working Detroiters who need transportation for employment but cannot afford a vehicle.",
-    phone:"(248) 552-9560", address:"Southfield, MI (serves Detroit residents)", website:"https://www.wheelsofsuccess.org", hours:"Mon–Fri 9am–5pm",
-    lat:42.4881, lng:-83.2536 },
-
   // ── VERIFIED BATCH 5: Utilities ──
   { name:"Heat and Warmth Fund (THAW)", category:"Utilities", scope:"Citywide", free:true,
     desc:"Michigan's statewide utility assistance fund providing heating and cooling bill help to low-income households—Detroit residents can apply through partner agencies.",
@@ -2514,11 +2509,6 @@ const resources = [
     desc:"Advocates for transgender rights in Detroit through community support, direct services, policy advocacy, and peer connection programs.",
     phone:"", address:"Detroit, MI", website:"https://www.detroittransadvocacy.org", hours:"Mon–Fri 9am–5pm",
     lat:null, lng:null },
-  { name:"THRIVE SS – HIV/AIDS Support", category:"LGBTQ+", scope:"Citywide", free:true,
-    desc:"Supportive services for people living with HIV/AIDS in Metro Detroit including case management, housing assistance, and peer support groups.",
-    phone:"(313) 446-9800", address:"2301 Woodward Ave, Detroit, MI 48201", website:"https://www.unified-hiv.org", hours:"Mon–Fri 8:30am–5pm",
-    lat:42.3441, lng:-83.0534 },
-
   // ── VERIFIED BATCH 6: Legal ──
   { name:"Wolverine Bar Association – Legal Aid", category:"Legal", scope:"Citywide", free:true,
     desc:"Detroit's historic Black bar association running free legal clinics and pro bono referrals for low-income residents—founded in 1919.",
@@ -2552,9 +2542,9 @@ const resources = [
     lat:42.3536, lng:-83.0637 },
 
   // ── VERIFIED BATCH 6: Transportation ──
-  { name:"Senior Transportation Connection", category:"Transportation", scope:"Citywide", free:true,
-    desc:"Volunteer and subsidized ride programs connecting Detroit seniors to medical appointments, grocery stores, and senior centers.",
-    phone:"(313) 446-4444", address:"1333 Brewery Park Blvd Ste 200, Detroit, MI 48207", website:"https://www.daaa.org/transportation", hours:"Mon–Fri 8am–5pm",
+  { name:"DAAA Non-Emergency Medical Transportation", category:"Transportation", scope:"Citywide", free:true,
+    desc:"Detroit Area Agency on Aging coordinates low-cost transportation for seniors and adults with disabilities via SMART, DDOT, local municipalities, and DAAA-arranged rides—including non-emergency medical transportation to appointments, dialysis, pharmacy, and radiology. Requires 7-day advance scheduling; call and ask for the I&A Department.",
+    phone:"(313) 446-4444", address:"1333 Brewery Park Blvd Ste 200, Detroit, MI 48207", website:"https://www.detroitseniorsolution.org/contact", hours:"Mon–Fri 8:30am–5pm",
     lat:42.358, lng:-83.0147 },
 
   // ── VERIFIED BATCH 6: Utilities ──
@@ -2892,9 +2882,9 @@ const resources = [
     phone:"(734) 293-7200", address:"Ferndale, MI (covers Detroit metro)", website:"https://www.pridesource.com", hours:"Online resource",
     lat:null, lng:null },
   { name:"Dignity Detroit – LGBTQ+ Catholics", category:"LGBTQ+", scope:"Citywide", free:true,
-    desc:"Community and spiritual support for LGBTQ+ Catholics and friends in Detroit—monthly gatherings, pastoral care, and advocacy within the church.",
-    phone:"", address:"Detroit, MI", website:"https://www.dignityusa.org/chapter/detroit", hours:"Monthly gatherings",
-    lat:null, lng:null },
+    desc:"Faith community for LGBTQ+ Catholics, families, and friends since 1974—affirming Mass and fellowship. Meets in the chapel at the former Marygrove College campus.",
+    phone:"", address:"Marygrove Conservancy Chapel, 8425 W McNichols Rd, Detroit, MI 48221", website:"https://www.dignitydetroit.org", hours:"See website for Mass schedule",
+    lat:42.4227, lng:-83.1683 },
   { name:"Trevor Project – Crisis Support", category:"LGBTQ+", scope:"Statewide", free:true,
     desc:"24/7 crisis intervention and suicide prevention for LGBTQ+ youth—call, text, or chat with a trained counselor any time.",
     phone:"(866) 488-7386", address:"National (serves Detroit LGBTQ+ youth)", website:"https://www.thetrevorproject.org", hours:"24/7",
@@ -2977,18 +2967,14 @@ const resources = [
     lat:42.3291, lng:-83.047 },
 
   // ── BATCH 7: Transportation ──
-  { name:"People Mover / QLine – Reduced Fares", category:"Transportation", scope:"Citywide", free:false,
-    desc:"Detroit's elevated rail loop and QLine streetcar offering reduced fares for seniors, disabled riders, and low-income residents in downtown and Midtown.",
-    phone:"(313) 224-2160", address:"1301 E Warren Ave, Detroit, MI 48207", website:"https://www.detroitpeoplemover.com", hours:"Daily; hours vary",
-    lat:42.3319, lng:-83.0458 },
-  { name:"Faith-Based Senior Transportation Ministry", category:"Transportation", scope:"Citywide", free:true,
-    desc:"Volunteer driver network coordinated through Detroit Area Agency on Aging—connects seniors without cars to medical appointments and essential services.",
-    phone:"(313) 446-4444", address:"Detroit, MI (network of faith communities)", website:"https://www.daaa.org/transportation", hours:"By appointment",
-    lat:null, lng:null },
-  { name:"Disability Network Southeast Michigan – Transportation", category:"Transportation", scope:"Regional", free:true,
-    desc:"Transportation assistance and advocacy for people with disabilities in Southeast Michigan—accessible vehicle referrals and transit navigation support.",
-    phone:"(734) 971-9277", address:"3941 Research Park Dr, Ann Arbor, MI 48108", website:"https://www.dnsem.org", hours:"Mon–Fri 8:30am–5pm",
-    lat:null, lng:null },
+  { name:"People Mover / QLine – Free to Ride", category:"Transportation", scope:"Citywide", free:true,
+    desc:"Detroit's elevated rail loop and QLine streetcar are both currently fare-free for all riders in downtown, Midtown, and New Center. People Mover fares suspended since January 2024; QLine has operated fare-free since relaunching in 2021.",
+    phone:"(313) 224-2160", address:"The Guardian Building, 500 Griswold St, Suite 2900, Detroit, MI 48226", website:"https://www.thepeoplemover.com", hours:"Mon–Thu 6:30am–12am; Fri 6:30am–2am; Sat 9am–2am; Sun 12pm–12am",
+    lat:42.3292, lng:-83.0466 },
+  { name:"Disability Network/Wayne County – Transportation", category:"Transportation", scope:"Citywide", free:true,
+    desc:"Transportation assistance and advocacy for Detroit and Wayne County residents with disabilities—accessible vehicle referrals and transit navigation support.",
+    phone:"(313) 923-1655", address:"5555 Conner St, Suite 2224, Detroit, MI 48213", website:"https://disabilitynetworkwcd.org", hours:"Mon–Fri 8:30am–4:30pm",
+    lat:42.3806, lng:-82.9925 },
   { name:"Community Transportation Services – Wayne Metro", category:"Transportation", scope:"Citywide", free:true,
     desc:"Transportation assistance program connecting low-income Wayne County residents to employment, medical appointments, and essential services.",
     phone:"(313) 388-9799", address:"7310 Woodward Ave, Detroit, MI 48202", website:"https://www.waynemetro.org", hours:"Mon–Fri 8:30am–5pm",
