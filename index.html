@@ -3406,17 +3406,129 @@ document.getElementById('catGrid').addEventListener('click', (e) => {
   showNeighborhoods(false);
 });
 
+// ─── SEARCH SYNONYMS / INTENT ────────────────────────────────────────────────
+// A typed word expands to related terms so plain-language searches reach the
+// right resources — e.g. "heat" or "ac" surface cooling centers and utility
+// help even though those entries never use the words "heat" or "ac". Add new
+// intents as  term: [related terms].  Everything must be lowercase. Expansion
+// terms are matched the same way typed words are (see termMatches): a term of
+// 3 characters or fewer must match a whole word, longer terms match anywhere.
+const SEARCH_SYNONYMS = {
+  // Hot weather / cooling
+  heat: ['cooling', 'cooling center', 'air conditioning', 'utility', 'dte'],
+  hot: ['cooling', 'cooling center', 'air conditioning', 'utility'],
+  ac: ['cooling', 'cooling center', 'air conditioning', 'air-conditioned', 'utility', 'dte'],
+  cool: ['cooling', 'cooling center', 'air conditioning'],
+  cooling: ['cooling center', 'air conditioning', 'utility'],
+  // Cold weather / heating
+  cold: ['warming', 'warming center', 'heating', 'shelter', 'utility', 'dte'],
+  heating: ['warming', 'heating', 'utility', 'dte', 'furnace'],
+  winter: ['warming', 'warming center', 'heating', 'shelter'],
+  furnace: ['heating', 'home repair', 'utility'],
+  // Utilities / bills
+  utilities: ['utility', 'dte', 'water', 'electric', 'bill', 'shutoff'],
+  utility: ['utility', 'dte', 'water', 'electric', 'bill', 'shutoff'],
+  bill: ['utility', 'assistance', 'dte', 'water', 'liheap'],
+  bills: ['utility', 'assistance', 'dte', 'water'],
+  electric: ['dte', 'utility', 'shutoff'],
+  power: ['dte', 'electric', 'utility', 'shutoff'],
+  gas: ['dte', 'utility', 'shutoff'],
+  water: ['water', 'dwsd', 'utility', 'shutoff'],
+  shutoff: ['utility', 'dte', 'water', 'assistance'],
+  // Food
+  food: ['food', 'pantry', 'meal', 'hunger', 'grocery', 'snap'],
+  hungry: ['food', 'pantry', 'meal', 'hunger'],
+  meal: ['food', 'meal', 'pantry'],
+  groceries: ['food', 'grocery', 'pantry', 'snap'],
+  snap: ['snap', 'food', 'ebt', 'benefit'],
+  ebt: ['snap', 'ebt', 'food'],
+  // Housing / rent / eviction
+  rent: ['rent', 'rental', 'eviction', 'housing', 'tenant', 'landlord'],
+  eviction: ['eviction', 'rent', 'tenant', 'legal', 'housing'],
+  evicted: ['eviction', 'rent', 'tenant', 'legal'],
+  housing: ['housing', 'rent', 'shelter', 'homeownership', 'eviction'],
+  homeless: ['shelter', 'housing', 'warming', 'homeless'],
+  shelter: ['shelter', 'housing', 'homeless', 'warming'],
+  landlord: ['tenant', 'rent', 'landlord', 'legal', 'renter'],
+  tenant: ['tenant', 'rent', 'renter', 'legal'],
+  mortgage: ['homeownership', 'foreclosure', 'housing'],
+  foreclosure: ['foreclosure', 'homeownership', 'tax', 'legal'],
+  // Jobs
+  job: ['job', 'employment', 'work', 'career', 'training', 'hiring'],
+  jobs: ['job', 'employment', 'work', 'career', 'training'],
+  work: ['job', 'employment', 'career'],
+  career: ['job', 'employment', 'career', 'training'],
+  hiring: ['job', 'employment', 'hiring'],
+  unemployed: ['job', 'employment', 'unemployment', 'training'],
+  resume: ['job', 'employment', 'career', 'training'],
+  // Health
+  doctor: ['health', 'clinic', 'medical', 'hospital'],
+  medical: ['health', 'clinic', 'medical', 'hospital'],
+  clinic: ['health', 'clinic', 'medical'],
+  mental: ['mental health', 'counseling', 'therapy', 'crisis'],
+  therapy: ['mental health', 'counseling', 'therapy'],
+  dental: ['dental', 'health', 'clinic'],
+  insurance: ['health', 'medicaid', 'insurance', 'coverage'],
+  medicaid: ['medicaid', 'health', 'insurance'],
+  // Transportation
+  bus: ['transit', 'transportation', 'ddot', 'smart', 'bus pass'],
+  transit: ['transit', 'transportation', 'ddot', 'smart', 'bus'],
+  ride: ['transportation', 'transit', 'ride'],
+  transportation: ['transit', 'transportation', 'ddot', 'smart', 'bus'],
+  // ID / legal
+  id: ['identification', 'state id', 'license', 'birth certificate'],
+  license: ['license', 'identification', 'state id', 'secretary of state'],
+  legal: ['legal', 'lawyer', 'attorney', 'court'],
+  lawyer: ['legal', 'lawyer', 'attorney'],
+  // Family / youth / seniors
+  childcare: ['child care', 'childcare', 'daycare', 'preschool', 'family'],
+  daycare: ['child care', 'daycare', 'childcare', 'preschool'],
+  kids: ['youth', 'child', 'family', 'childcare'],
+  child: ['youth', 'child', 'family', 'childcare'],
+  youth: ['youth', 'teen', 'child', 'after school'],
+  senior: ['senior', 'elderly', 'aging', 'older adult'],
+  seniors: ['senior', 'elderly', 'aging', 'older adult'],
+  // Immigration / veterans / lgbtq
+  immigrant: ['immigrant', 'immigration', 'refugee', 'citizenship'],
+  immigration: ['immigrant', 'immigration', 'refugee', 'citizenship'],
+  veteran: ['veteran', 'military'],
+  veterans: ['veteran', 'military'],
+  lgbtq: ['lgbtq', 'lgbt', 'queer', 'transgender'],
+  // Money / crisis
+  money: ['financial', 'assistance', 'cash', 'benefit'],
+  cash: ['financial', 'assistance', 'cash', 'benefit'],
+  emergency: ['crisis', 'emergency', 'shelter', 'assistance'],
+  crisis: ['crisis', 'emergency', 'hotline']
+};
+
+// Match a single term against resource text using word boundaries so we never
+// hit letters buried inside an unrelated word.
+//   - Short terms (<=3 chars, e.g. "ac") must match a WHOLE word, so "ac" finds
+//     "ac" but never "pl[ac]e" or "[ac]cess".
+//   - Longer terms match at a WORD START, so stems still work ("rent" -> "rental",
+//     "cool" -> "cooling") without catching mid-word substrings ("rent" inside
+//     "cu[rrent]" / "pa[rent]").
+function termMatches(term, text) {
+  const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const pattern = term.length <= 3 ? '\\b' + escaped + '\\b' : '\\b' + escaped;
+  return new RegExp(pattern).test(text);
+}
+
+// Expand a typed keyword to itself plus any synonym/intent terms.
+function expandKeyword(k) {
+  return SEARCH_SYNONYMS[k] ? [k, ...SEARCH_SYNONYMS[k]] : [k];
+}
+
 function doSearch() {
   const query = document.getElementById('searchInput').value.trim();
   if (!query) return;
   currentQuery = query;
   activeCategories.clear();
   document.querySelectorAll('.cat-tile').forEach(t => t.classList.remove('active'));
-  const lower = query.toLowerCase();
-  const keywords = lower.split(/\s+/);
+  const keywords = query.toLowerCase().split(/\s+/).filter(Boolean);
   const filtered = resources.filter(r => {
     const text = `${r.name} ${r.category} ${r.desc}`.toLowerCase();
-    return keywords.some(k => text.includes(k));
+    return keywords.some(k => expandKeyword(k).some(term => termMatches(term, text)));
   });
   showResults(filtered.length > 0 ? filtered : resources, `Results for "${query}"`);
   showNeighborhoods(true);
