@@ -296,6 +296,9 @@
   }
   .sidebar-card:hover { border-color: var(--blue); background: var(--blue-light); }
   .sidebar-card.highlighted { border-color: var(--amber); background: #FFF8EC; }
+  .sidebar-card.no-loc { cursor: default; background: #FAF8F3; border-style: dashed; }
+  .sidebar-card.no-loc:hover { border-color: var(--border); background: #FAF8F3; }
+  .not-on-map { display: inline-block; margin-top: 4px; font-size: 11px; font-weight: 600; color: var(--ink-light); text-transform: uppercase; letter-spacing: 0.04em; }
   .sidebar-card-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: 0.02em; color: var(--ink); margin-bottom: 4px; }
   .sidebar-card-cat { font-size: 11px; font-weight: 600; color: var(--blue); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
   .sidebar-card-meta { font-size: 12px; color: var(--ink-mid); line-height: 1.6; }
@@ -3265,7 +3268,18 @@ function switchPage(page) {
 let activeCategories = new Set();
 let currentQuery = '';
 
+// A resource is "located" if it has real map coordinates. Resources without a
+// fixed address (citywide programs, hotlines, online/virtual services) have no
+// coordinates: they get no map pin, and in any list they sort to the bottom so
+// address-based resources come first. Stable sort keeps original order within
+// each group.
+function isLocated(r) { return !!(r.lat && r.lng); }
+function locatedFirst(list) {
+  return list.slice().sort((a, b) => (isLocated(b) ? 1 : 0) - (isLocated(a) ? 1 : 0));
+}
+
 function showResults(list, title) {
+  list = locatedFirst(list);
   document.getElementById('browsePrompt').style.display = 'none';
   const area = document.getElementById('resultsArea');
   area.style.display = 'block';
@@ -3540,6 +3554,7 @@ document.getElementById('searchInput').addEventListener('keydown', (e) => { if (
 // ─── MAP LOGIC ───────────────────────────────────────────────────────────────
 let mapInitialized = false;
 let googleMap, geocoder, markers = [], infoWindow;
+let markerByIdx = {};   // list-position index -> marker (only for located resources)
 let userMarker = null;
 
 function initMap() {
@@ -3587,6 +3602,7 @@ function getCatColor(cat) {
 function plotAllMarkers(list) {
   markers.forEach(m => m.setMap(null));
   markers = [];
+  markerByIdx = {};
   list.forEach((r, i) => {
     if (!r.lat || !r.lng) return;
     const marker = new google.maps.Marker({
@@ -3616,43 +3632,53 @@ function plotAllMarkers(list) {
       highlightSidebarCard(i);
     });
     markers.push(marker);
+    markerByIdx[i] = marker;
   });
 }
 
 function renderSidebarAll() {
   const catFilter = document.getElementById('mapCatFilter').value;
-  const list = catFilter ? resources.filter(r => r.category === catFilter) : resources;
+  const base = catFilter ? resources.filter(r => r.category === catFilter) : resources;
+  const list = locatedFirst(base);
   document.getElementById('sidebarTitle').textContent = catFilter || 'All Resources';
   document.getElementById('sidebarSubtitle').textContent = `${list.length} resources across Detroit`;
   plotAllMarkers(list);
-  renderSidebarList(list, list);
+  renderSidebarList(list);
 }
 
-function renderSidebarList(list, fullList) {
+// `list` must be the SAME array (same order) passed to plotAllMarkers so that
+// each card's index lines up with its marker. Located resources are clickable
+// (focus the pin); location-less ones render at the bottom, non-clickable, with
+// a note that they aren't on the map.
+function renderSidebarList(list) {
   const container = document.getElementById('sidebarList');
   if (list.length === 0) {
     container.innerHTML = `<div class="map-empty"><div class="big">🔍</div><p>No resources found nearby. Try expanding your search.</p></div>`;
     return;
   }
-  container.innerHTML = list.map(r => {
-    const idx = fullList.indexOf(r);
-    return `<div class="sidebar-card" id="sc-${idx}" onclick="focusMarker(${idx})">
+  container.innerHTML = list.map((r, idx) => {
+    const located = isLocated(r);
+    const cls = located ? 'sidebar-card' : 'sidebar-card no-loc';
+    const click = located ? ` onclick="focusMarker(${idx})"` : '';
+    return `<div class="${cls}" id="sc-${idx}"${click}>
       <div class="sidebar-card-name">${r.name}</div>
       <div class="sidebar-card-cat">${r.category} · ${r.scope}</div>
       <div class="sidebar-card-meta">
         ${r.phone ? `📞 <a href="tel:${r.phone}">${r.phone}</a><br>` : ''}
         ${r.address ? `📍 ${r.address}<br>` : ''}
-        ${r.hours ? `🕐 ${r.hours}` : ''}
+        ${r.hours ? `🕐 ${r.hours}<br>` : ''}
+        ${located ? '' : '<span class="not-on-map">Citywide / virtual — not on map</span>'}
       </div>
     </div>`;
   }).join('');
 }
 
 function focusMarker(idx) {
-  if (markers[idx]) {
-    googleMap.panTo(markers[idx].getPosition());
+  const marker = markerByIdx[idx];
+  if (marker) {
+    googleMap.panTo(marker.getPosition());
     googleMap.setZoom(15);
-    google.maps.event.trigger(markers[idx], 'click');
+    google.maps.event.trigger(marker, 'click');
   }
   highlightSidebarCard(idx);
 }
@@ -3667,9 +3693,10 @@ function doMapSearch() {
   const input = document.getElementById('mapSearchInput').value.trim();
   const catFilter = document.getElementById('mapCatFilter').value;
   if (!input) {
-    const filtered = catFilter ? resources.filter(r => r.category === catFilter) : resources;
+    const base = catFilter ? resources.filter(r => r.category === catFilter) : resources;
+    const filtered = locatedFirst(base);
     plotAllMarkers(filtered);
-    renderSidebarList(filtered, filtered);
+    renderSidebarList(filtered);
     document.getElementById('sidebarTitle').textContent = catFilter || 'All Resources';
     document.getElementById('sidebarSubtitle').textContent = `${filtered.length} resources across Detroit`;
     return;
@@ -3698,9 +3725,10 @@ function doMapSearch() {
     withDist.sort((a, b) => a.dist - b.dist);
     const nearby = withDist.filter(r => r.dist < 0.15);
     const display = catFilter ? nearby.filter(r => r.category === catFilter) : nearby;
-    const finalList = display.length > 0 ? display : (catFilter ? resources.filter(r => r.category === catFilter) : resources);
+    const finalRaw = display.length > 0 ? display : (catFilter ? resources.filter(r => r.category === catFilter) : resources);
+    const finalList = locatedFirst(finalRaw);
     plotAllMarkers(finalList);
-    renderSidebarList(finalList, finalList);
+    renderSidebarList(finalList);
     document.getElementById('sidebarTitle').textContent = results[0].formatted_address.split(',')[0];
     document.getElementById('sidebarSubtitle').textContent = `${finalList.length} resource${finalList.length !== 1 ? 's' : ''} nearby`;
   });
