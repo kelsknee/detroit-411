@@ -3490,14 +3490,15 @@ function initMap() {
   });
   geocoder = new google.maps.Geocoder();
   infoWindow = new google.maps.InfoWindow();
-  plotAllMarkers(resources);
   renderSidebarAll();
 }
 
 function getCatColor(cat) {
   const map = {
+    'Crisis & Emergency': '#C0202A',
     'Food & Hunger': '#E63946',
-    'Housing': '#2196F3',
+    'Homeownership': '#2196F3',
+    'Renter Protections': '#1E88E5',
     'Health': '#4CAF50',
     'Employment': '#FF9800',
     'Youth': '#9C27B0',
@@ -3507,7 +3508,11 @@ function getCatColor(cat) {
     'Transportation': '#00BCD4',
     'Family': '#E91E63',
     'Veterans': '#3F51B5',
-    'Community': '#009688'
+    'Blight Removal': '#8D6E63',
+    'Small Business': '#00897B',
+    'Immigrant Services': '#009688',
+    'LGBTQ+': '#AB47BC',
+    'Financial Assistance': '#43A047'
   };
   return map[cat] || '#003DA5';
 }
@@ -3552,7 +3557,8 @@ function renderSidebarAll() {
   const list = catFilter ? resources.filter(r => r.category === catFilter) : resources;
   document.getElementById('sidebarTitle').textContent = catFilter || 'All Resources';
   document.getElementById('sidebarSubtitle').textContent = `${list.length} resources across Detroit`;
-  renderSidebarList(list, resources);
+  plotAllMarkers(list);
+  renderSidebarList(list, list);
 }
 
 function renderSidebarList(list, fullList) {
@@ -3596,7 +3602,7 @@ function doMapSearch() {
   if (!input) {
     const filtered = catFilter ? resources.filter(r => r.category === catFilter) : resources;
     plotAllMarkers(filtered);
-    renderSidebarList(filtered, resources);
+    renderSidebarList(filtered, filtered);
     document.getElementById('sidebarTitle').textContent = catFilter || 'All Resources';
     document.getElementById('sidebarSubtitle').textContent = `${filtered.length} resources across Detroit`;
     return;
@@ -3627,7 +3633,7 @@ function doMapSearch() {
     const display = catFilter ? nearby.filter(r => r.category === catFilter) : nearby;
     const finalList = display.length > 0 ? display : (catFilter ? resources.filter(r => r.category === catFilter) : resources);
     plotAllMarkers(finalList);
-    renderSidebarList(finalList, resources);
+    renderSidebarList(finalList, finalList);
     document.getElementById('sidebarTitle').textContent = results[0].formatted_address.split(',')[0];
     document.getElementById('sidebarSubtitle').textContent = `${finalList.length} resource${finalList.length !== 1 ? 's' : ''} nearby`;
   });
