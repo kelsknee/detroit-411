@@ -912,6 +912,14 @@
             <a class="guide-link" href="tel:3132241426">📞 (313) 224-1426</a>
           </div>
         </div>
+        <div class="guide-card">
+          <div class="guide-card-title">Report a Dead Animal</div>
+          <div class="guide-card-body">The Department of Public Works collects dead dogs and cats from residential curbsides and city streets. Place the animal at the curb if you won't be home <strong>DPW will not go onto private property</strong> to collect it. Can also be reported through the Improve Detroit app.</div>
+          <div class="guide-links">
+            <a class="guide-link" href="tel:3138760004">📞 (313) 876-0004</a>
+            <a class="guide-link" href="https://detroitmi.gov/webapp/improve-detroit-report-issue-online" target="_blank">📱 Report via Improve Detroit</a>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -2609,6 +2617,18 @@ const resources = [
     desc:"Mobile hygiene service for people experiencing homelessness across Macomb, Oakland, and Detroit/Wayne counties—free mobile showers, clothing, and hygiene kits brought directly to communities in need.",
     phone:"", address:"Mobile service; based in Clinton Township, MI", website:"https://www.waveproject.org", hours:"See website for outreach schedule",
     lat:null, lng:null },
+  { name:"Crime Stoppers of Michigan (1-800-SPEAK UP)", category:"Crisis & Emergency", scope:"Statewide", free:true,
+    desc:"Anonymous tip line for crimes in Detroit and across Michigan. Tips can lead to cash rewards ($100–$2,500) if they result in an arrest, charges, or recovery of stolen property—no caller ID, calls aren't recorded, and you're given a code number instead of using your name.",
+    phone:"(800) 773-2587", address:"Michigan (phone/online hotline)", website:"https://www.1800speakup.org", hours:"24/7",
+    lat:null, lng:null },
+  { name:"Detroit Animal Care & Control (DACC)", category:"Crisis & Emergency", scope:"Citywide", free:true,
+    desc:"City shelter and animal control agency—report a lost, found, stray, injured, or dangerous animal; adopt or reclaim a pet; or get help surrendering an animal you can no longer keep.",
+    phone:"(313) 922-3647", address:"1431 E Ferry St, Detroit, MI 48211", website:"https://detroitmi.gov/departments/general-services-department/detroit-animal-care-and-control", hours:"Animal control calls: 7am–7pm daily; shelter intake 10am–3:30pm daily; adoptions/reclaims 10am–5:30pm daily",
+    lat:42.3808, lng:-83.0655 },
+  { name:"Detroit Public Works – Report a Dead Animal", category:"Crisis & Emergency", scope:"Citywide", free:true,
+    desc:"DPW's Solid Waste Division collects dead dogs and cats from residential curbsides and city streets. They will not go onto private property to collect a dead animal—place it at the curb if you won't be home. Can also be reported via the Improve Detroit app.",
+    phone:"(313) 876-0004", address:"Detroit, MI", website:"https://detroitmi.gov/departments/department-public-works/refuse-collection/dead-animal-removal", hours:"Mon–Fri 8am–4:30pm",
+    lat:null, lng:null },
 
   // ── BATCH 7: Employment ──
   { name:"Hired Inc.", category:"Employment", scope:"Regional", free:true,
@@ -2807,6 +2827,14 @@ const resources = [
     desc:"MI Home Loan program offering down payment assistance grants up to $10,000 for first-time Detroit homebuyers—combined with low fixed-rate mortgages.",
     phone:"(517) 373-8370", address:"Statewide; Detroit applications accepted", website:"https://www.michigan.gov/mshda/homeownership/mi-home-loan", hours:"Mon–Fri 8am–5pm",
     lat:null, lng:null },
+  { name:"City of Detroit – HOPE & PAYS Property Tax Exemption", category:"Homeownership", scope:"Citywide", free:true,
+    desc:"Homeowners Property Exemption (HOPE) reduces or eliminates current-year property taxes for income-qualifying Detroit homeowners. Pay As You Stay (PAYS) reduces back taxes owed for homeowners already approved for HOPE. Apply annually.",
+    phone:"(866) 313-2520", address:"Coleman A. Young Municipal Center, 2 Woodward Ave, Detroit, MI 48226", website:"https://detroitmi.gov/HOPE", hours:"Mon–Fri 8am–6pm; Sat 9am–12pm",
+    lat:42.3292, lng:-83.0459 },
+  { name:"City of Detroit – Property Assessment Appeal (Office of the Assessor)", category:"Homeownership", scope:"Citywide", free:true,
+    desc:"Dispute your home's assessed value—different from HOPE, which is about ability to pay. Appeal process runs Assessor Review (February) then the required March Board of Review, before an optional Michigan Tax Tribunal appeal. Deadlines are strict; check current-year dates before filing.",
+    phone:"(313) 224-3035", address:"Coleman A. Young Municipal Center, 2 Woodward Ave Ste 804, Detroit, MI 48226", website:"https://detroitmi.gov/departments/office-chief-financial-officer/ocfo-divisions/office-assessor/property-assessment-appeal-information", hours:"Mon–Fri 9am–4:30pm; Sat 9am–1pm (Assessor Review period only)",
+    lat:42.3292, lng:-83.0459 },
 
   // ── BATCH 7: Immigrant Services ──
   { name:"Catholic Legal Immigration Network (CLINIC) – Michigan", category:"Immigrant Services", scope:"Citywide", free:true,
@@ -2881,6 +2909,14 @@ const resources = [
     desc:"Free virtual legal consultations for underserved, low-income Detroit and Wayne County residents, staffed by volunteer attorneys through the Detroit Bar Association Foundation.",
     phone:"(313) 961-6120", address:"2 Woodward Ave Ste 1207, Detroit, MI 48226", website:"https://www.detroitlawyer.org", hours:"Mon–Fri 9am–5pm",
     lat:42.3290050, lng:-83.0445210 },
+  { name:"Office of the Chief Investigator – Police Complaints", category:"Legal", scope:"Citywide", free:true,
+    desc:"Civilian-staffed investigative arm of the Detroit Board of Police Commissioners. File a complaint about the conduct of any Detroit Police Department employee by phone, letter, fax, online, or in person.",
+    phone:"(313) 596-2499", address:"900 Merrill Plaisance, Detroit, MI 48203", website:"https://detroitmi.gov/how-do-i/report-problem/police-complaint", hours:"Mon–Fri 8:30am–4:30pm",
+    lat:42.4128, lng:-83.0965 },
+  { name:"City of Detroit – Office of Inspector General", category:"Legal", scope:"Citywide", free:true,
+    desc:"Investigates fraud, waste, abuse, and corruption involving City of Detroit employees and contractors. Report by phone, hotline voicemail, email, or in person. Does not handle landlord/tenant issues, identity theft, or other criminal matters (those go to BSEED or DPD).",
+    phone:"(313) 628-2517", address:"615 Griswold St Ste 1230, Detroit, MI 48226", website:"https://detroitmi.gov/government/office-inspector-general", hours:"Mon–Fri 9am–5pm",
+    lat:42.3313, lng:-83.0466 },
 
   // ── BATCH 7: Renter Protections ──
   { name:"Michigan Coalition Against Homelessness", category:"Renter Protections", scope:"Statewide", free:true,
@@ -2899,6 +2935,10 @@ const resources = [
     desc:"State court program expanding access to legal help for self-represented Detroit litigants in eviction cases—court navigators and self-help resources.",
     phone:"", address:"Michigan Supreme Court; Detroit courts covered", website:"https://www.courts.michigan.gov/administration/scao/resources/access-to-justice/", hours:"During court hours",
     lat:null, lng:null },
+  { name:"BSEED – Submit a Rental Complaint", category:"Renter Protections", scope:"Citywide", free:true,
+    desc:"Report unsafe or poorly maintained conditions in a residential rental property to the City's Buildings, Safety Engineering & Environmental Department. BSEED will inspect for free and require the landlord to make repairs. Also lets you look up whether your rental has a valid Certificate of Compliance before signing a lease.",
+    phone:"(313) 224-2733", address:"735 Randolph St, Detroit, MI 48226", website:"https://detroitmi.gov/how-do-i/report-problem/submit-rental-complaints", hours:"Mon–Fri 8am–5pm",
+    lat:42.3319, lng:-83.0468 },
 
   // ── BATCH 7: Seniors ──
   { name:"AARP Michigan – Fraud Fighter Hotline", category:"Seniors", scope:"Statewide", free:true,
@@ -3183,6 +3223,10 @@ const resources = [
     desc:"City program (via DEGC/DEGA) providing $5,000–$50,000 grants to longstanding Detroit small businesses meeting 'legacy business' criteria, for building improvements and business sustainability. At least one $15,000 grant is guaranteed per City Council district each round.",
     phone:"(844) 333-8249", address:"500 Griswold St, Ste 2200, Detroit, MI 48226", website:"https://detroitmi.gov/opportunities/apply-grant", hours:"Mon–Fri 9am–5pm",
     lat:42.3288, lng:-83.0465 },
+  { name:"Detroit Business Opportunity Program (DBOP) – CRIO Certification", category:"Small Business", scope:"Citywide", free:true,
+    desc:"City certification program (via the Civil Rights, Inclusion & Opportunity Department) for Detroit-based, Detroit-headquartered, Detroit resident-owned, minority-owned, and woman-owned businesses—opens access to City contracting opportunities, RFPs, and set-aside funds. Annual recertification required.",
+    phone:"(313) 224-4950", address:"Coleman A. Young Municipal Center, 2 Woodward Ave, Detroit, MI 48226", website:"https://detroitmi.gov/departments/civil-rights-inclusion-opportunity-department/detroit-business-opportunity-program-certifications-certifications", hours:"Mon–Fri 8:30am–4:30pm",
+    lat:42.3292, lng:-83.0459 },
   { name:"Office of Immigrant Affairs and Economic Inclusion", category:"Immigrant Services", scope:"Citywide", free:true,
     desc:"City office connecting immigrant residents to language access, job opportunities, small-business support, and community services, and coordinating City programs and partnerships to make Detroit a welcoming city for immigrants.",
     phone:"(313) 224-6380", address:"Coleman A. Young Municipal Center, 2 Woodward Ave, Suite 908, Detroit, MI 48226", website:"https://detroitmi.gov/departments/housing-and-revitalization-department/office-immigrant-affairs", hours:"Mon–Fri 8:30am–4:30pm",
