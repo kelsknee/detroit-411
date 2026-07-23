@@ -17,13 +17,10 @@ now been corrected to the official neighborhood.
 | Life Remodeled Durfee | "Durfee / Outer Drive-Hayes" | **Dexter-Linwood** | 2470 Collingwood St → Dexter-Linwood (D5) |
 | Life Remodeled Durfee (`neighborhoods` array) | group "Conant Gardens / Pershing" + stale coord | group **Dexter-Linwood** + corrected coord | same |
 | Life Remodeled Anchor Detroit | "Denby" | **Outer Drive-Hayes** | 9740 McKinney St → Outer Drive-Hayes (D4). NOTE: "Denby" is Life Remodeled's own branding for this program — revert if you prefer the community name over the official boundary. |
-| Detroit Hispanic Development Corporation | "Southwest Detroit" | **Corktown** | 1211 Trumbull St → Corktown (D6) |
-
-Kept as **"Southwest Detroit"** by choice: the three **Southwest Solutions**
-entries (Housing Counseling, Renter Support, Earn + Learn). Their office at 1600
-Porter St is officially in Corktown (D6), but the org's name is "Southwest" and
-it serves Southwest Detroit, so the label stays "Southwest Detroit" rather than
-the strict boundary name.
+**`scope` = service area, not office location.** Kept as **"Southwest Detroit"**:
+the three **Southwest Solutions** entries and **Detroit Hispanic Development
+Corporation**. Their offices sit in Corktown (D6) by the strict boundary, but
+all four serve the Southwest Detroit community, which is what `scope` describes.
 | Rebuilding Together SE Michigan | "Jefferson-Chalmers / Council District 4" | **Regional** | Office is 27840 Independence St, **Farmington Hills** — outside Detroit; scope had named a service area, not the location. |
 
 ## Verified correct (unchanged)
