@@ -3420,10 +3420,14 @@ const SYNONYMS = {
   doctor:['health','clinic'], lawyer:['legal','attorney'], electric:['dte','utilities'], gas:['dte','utilities','consumers'],
   trash:['garbage','waste','pickup'], garbage:['trash','waste'], license:['licence','secretary'], plates:['tabs','plate','registration'],
   bus:['ddot','transit','transportation'], ride:['transportation','transit'], kids:['youth','children','child'], child:['children','family','youth'],
-  mortgage:['homeownership','foreclosure','loan'], taxes:['tax','property'], vote:['voting','election','voter'], parking:['park','ticket'],
+  mortgage:['homeownership','foreclosure','loan'], taxes:['tax','property'], vote:['voting','election','voter'], parking:['citation','violation'],
 };
 function stem(w) {
-  return w.length > 4 ? w.replace(/(ing|ed|es|s)$/, '') : w.replace(/s$/, '');
+  // plurals only: "parking" and "park" are different words
+  if (w.length <= 3) return w;
+  if (/(ies)$/.test(w)) return w.slice(0, -3) + 'y';
+  if (/(sses|xes|ches|shes)$/.test(w)) return w.slice(0, -2);
+  return w.replace(/([^s])s$/, '$1');
 }
 function tokenize(str) {
   return str.toLowerCase().replace(/&/g, ' ').split(/[^a-z0-9+]+/).filter(Boolean).map(stem);
@@ -3445,7 +3449,7 @@ function scoreItem(q, fields) {
     const set = new Set(toks);
     const joined = toks.join(' ');
     q.core.forEach(t => {
-      if (set.has(t) || toks.some(x => x.length > 3 && t.length > 3 && (x.startsWith(t) || t.startsWith(x)))) {
+      if (set.has(t)) {
         score += weight; matched.add(t);
       }
     });
