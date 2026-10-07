@@ -216,6 +216,7 @@
   @keyframes pulse { 0%,80%,100%{opacity:0.3;transform:scale(0.8)} 40%{opacity:1;transform:scale(1)} }
 
   /* RESOURCE CARDS */
+  #resultsArea { scroll-margin-top: 70px; }
   .results-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 16px; }
   .results-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 22px; color: var(--ink); text-transform: uppercase; letter-spacing: 0.03em; }
   .results-count { font-size: 13px; color: var(--ink-light); }
@@ -522,6 +523,7 @@
             <button class="clear-filter" id="clearFilter" style="display:none" onclick="clearFilter()">Clear filter</button>
           </div>
         </div>
+        <div class="resource-list" id="guideResults"></div>
         <div class="resource-list" id="resourceList"></div>
       </div>
     </div>
@@ -3285,15 +3287,17 @@ function switchPage(page) {
 let activeCategories = new Set();
 let currentQuery = '';
 
-function showResults(list, title) {
+function showResults(list, title, guideHits = []) {
   document.getElementById('browsePrompt').style.display = 'none';
+  renderGuideHits(guideHits);
   const area = document.getElementById('resultsArea');
   area.style.display = 'block';
   document.getElementById('resultsTitle').textContent = title || 'Resources';
-  document.getElementById('resultsCount').textContent = `${list.length} resource${list.length !== 1 ? 's' : ''}`;
+  const total = list.length + guideHits.length;
+  document.getElementById('resultsCount').textContent = `${total} result${total !== 1 ? 's' : ''}`;
   document.getElementById('clearFilter').style.display = (activeCategories.size || currentQuery) ? 'inline' : 'none';
   const container = document.getElementById('resourceList');
-  if (list.length === 0) {
+  if (total === 0) {
     container.innerHTML = `<div style="text-align:center;padding:40px 24px;color:var(--ink-light);border:2px dashed var(--border);border-radius:var(--radius);background:var(--white)"><div style="font-size:36px;margin-bottom:8px">🔍</div><p>No resources found. Try a different search or category.</p></div>`;
     return;
   }
@@ -3429,19 +3433,124 @@ document.getElementById('catGrid').addEventListener('click', (e) => {
   document.getElementById('aiBox').classList.remove('visible');
 });
 
+// ─── SEARCH RANKING ──────────────────────────────────────────────────────────
+const STOPWORDS = new Set(['a','an','the','to','for','of','in','on','at','my','me','i','we','our','and','or','with','how','do','does','can','where','what','who','get','need','needs','want','help','find','looking','please','is','are','am','be','it','up','about','some','near']);
+const SYNONYMS = {
+  rent:['renter','landlord','lease','tenant'], landlord:['renter','tenant'], evict:['eviction'], evicted:['eviction'],
+  food:['hunger','pantry','meal'], hungry:['food','pantry','hunger'], job:['employment','career','training'], work:['employment','job'],
+  doctor:['health','clinic'], lawyer:['legal','attorney'], electric:['dte','utilities'], gas:['dte','utilities','consumers'],
+  trash:['garbage','waste','pickup'], garbage:['trash','waste'], license:['licence','secretary'], plates:['tabs','plate','registration'],
+  bus:['ddot','transit','transportation'], ride:['transportation','transit'], kids:['youth','children','child'], child:['children','family','youth'],
+  mortgage:['homeownership','foreclosure','loan'], taxes:['tax','property'], vote:['voting','election','voter'], parking:['park','ticket'],
+};
+function stem(w) {
+  return w.length > 4 ? w.replace(/(ing|ed|es|s)$/, '') : w.replace(/s$/, '');
+}
+function tokenize(str) {
+  return str.toLowerCase().replace(/&/g, ' ').split(/[^a-z0-9+]+/).filter(Boolean).map(stem);
+}
+function parseQuery(query) {
+  const all = tokenize(query);
+  const terms = all.filter(t => !STOPWORDS.has(t));
+  const core = terms.length ? terms : all;
+  const synonyms = new Set();
+  core.forEach(t => (SYNONYMS[t] || []).forEach(x => synonyms.add(stem(x))));
+  core.forEach(t => synonyms.delete(t));
+  return { core, synonyms: [...synonyms], phrase: core.join(' ') };
+}
+function scoreItem(q, fields) {
+  // fields: [{ text, weight }]. Each query term scores once per field; synonyms count for less.
+  let score = 0, matched = new Set();
+  for (const { text, weight } of fields) {
+    const toks = tokenize(text);
+    const set = new Set(toks);
+    const joined = toks.join(' ');
+    q.core.forEach(t => {
+      if (set.has(t) || toks.some(x => x.length > 3 && t.length > 3 && (x.startsWith(t) || t.startsWith(x)))) {
+        score += weight; matched.add(t);
+      }
+    });
+    q.synonyms.forEach(t => { if (set.has(t)) score += weight * 0.3; });
+    if (q.core.length > 1 && joined.includes(q.phrase)) score += weight * 2;
+  }
+  // reward items that match every query term, penalize partial matches
+  if (q.core.length > 1) score *= (0.4 + 0.6 * matched.size / q.core.length);
+  return score;
+}
+
+// Guide cards are indexed straight from the City Guide page so the two never drift apart.
+let guideIndex = null;
+function buildGuideIndex() {
+  guideIndex = [...document.querySelectorAll('#page-guide .guide-card')].map(el => {
+    const section = el.closest('.guide-section')?.querySelector('.guide-section-title')?.textContent.trim() || '';
+    const links = [...el.querySelectorAll('a.guide-link:not([href^="tel:"])')];
+    return {
+      el, section,
+      title: el.querySelector('.guide-card-title')?.textContent.trim() || '',
+      body: el.querySelector('.guide-card-body')?.textContent.trim() || '',
+      linkText: links.map(a => a.textContent).join(' '),
+      href: links[0]?.href || '',
+      linkLabel: links[0]?.textContent.trim() || '',
+    };
+  });
+}
+function searchGuide(q) {
+  if (!guideIndex) buildGuideIndex();
+  const scored = guideIndex.map(g => ({
+    g, score: scoreItem(q, [
+      { text: g.title, weight: 6 }, { text: g.linkText, weight: 3 },
+      { text: g.section, weight: 2 }, { text: g.body, weight: 1 },
+    ])
+  })).filter(x => x.score > 0).sort((a, b) => b.score - a.score);
+  if (!scored.length) return [];
+  const top = scored[0].score;
+  return scored.filter(x => x.score >= top * 0.6).slice(0, 3).map(x => x.g);
+}
+function searchResources(q) {
+  return resources.map(r => ({
+    r, score: scoreItem(q, [
+      { text: r.name, weight: 5 }, { text: r.category, weight: 3 }, { text: r.desc, weight: 1 },
+    ])
+  })).filter(x => x.score > 0).sort((a, b) => b.score - a.score).map(x => x.r);
+}
+function renderGuideHits(hits) {
+  const box = document.getElementById('guideResults');
+  guideHitItems = hits;
+  box.innerHTML = hits.map((g, i) => `
+    <div class="resource-card" style="border-color:var(--blue)">
+      <div class="card-top">
+        <div class="card-name">${g.title}</div>
+        <div class="card-tags"><span class="tag tag-cat">City Guide</span><span class="tag tag-scope">${g.section}</span></div>
+      </div>
+      <div class="card-desc">${g.body}</div>
+      <div class="card-meta">
+        ${g.href ? `<span class="meta-item">🌐 <a href="${g.href}" target="_blank" rel="noopener">${g.linkLabel}</a></span>` : ''}
+        <span class="meta-item"><a href="#" onclick="openGuideCard(${i});return false">🏙️ View in City Guide</a></span>
+      </div>
+    </div>`).join('');
+}
+let guideHitItems = [];
+function openGuideCard(i) {
+  const g = guideHitItems[i];
+  if (!g) return;
+  switchPage('guide');
+  g.el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  g.el.style.boxShadow = '0 0 0 3px var(--amber)';
+  setTimeout(() => { g.el.style.boxShadow = ''; }, 2500);
+}
+
 async function doSearch() {
   const query = document.getElementById('searchInput').value.trim();
   if (!query) return;
   currentQuery = query;
   activeCategories.clear();
   document.querySelectorAll('.cat-tile').forEach(t => t.classList.remove('active'));
-  const lower = query.toLowerCase();
-  const keywords = lower.split(/\s+/);
-  const filtered = resources.filter(r => {
-    const text = `${r.name} ${r.category} ${r.desc}`.toLowerCase();
-    return keywords.some(k => text.includes(k));
-  });
-  showResults(filtered.length > 0 ? filtered : resources, `Results for "${query}"`);
+  const q = parseQuery(query);
+  const filtered = searchResources(q);
+  const guideHits = searchGuide(q);
+  showResults(filtered.length > 0 || guideHits.length > 0 ? filtered : resources, `Results for "${query}"`, guideHits);
+  document.getElementById('searchInput').blur();
+  document.getElementById('resultsArea').scrollIntoView({ behavior: 'smooth', block: 'start' });
   showNeighborhoods(true);
   const aiBox = document.getElementById('aiBox');
   const aiAnswer = document.getElementById('aiAnswer');
